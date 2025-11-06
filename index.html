@@ -12,6 +12,15 @@
     <header class="app-header" id="appHeader">
         <div class="header-content">
             <div class="header-branding">
+                <!-- NEW: Donate button (left side) -->
+                <button class="btn-donate-icon" id="btnDonate" 
+                        title="Support the developer" 
+                        data-i18n-title="btn_donate_tooltip">
+                    <svg class="icon-svg icon-heart" viewBox="0 0 24 24">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </button>
+                
                 <h1 class="app-title" data-i18n="app_title" translate="yes">Discord Embed Creator</h1>
             </div>
             <div class="header-actions">
@@ -47,6 +56,27 @@
             </div>
         </div>
     </header>
+
+    <!-- PayPal Donation Banner -->
+    <div class="donation-banner" id="donationBanner">
+        <div class="donation-content">
+            <div class="donation-text">
+                <h4 data-i18n="donation_title" translate="yes">Support Development</h4>
+                <p data-i18n="donation_message" translate="yes">If you find this tool useful, consider supporting the developer with a voluntary donation via PayPal</p>
+            </div>
+            <div class="donation-actions">
+                <a href="https://paypal.me/SalmonidasDEV?country.x=ES&locale.x=es_ES" 
+                   class="btn btn-donate" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   data-i18n="donation_button"
+                   translate="yes">
+                    ☕ Buy me a coffee
+                </a>
+                <button class="btn-close-banner" id="closeDonationBanner" data-i18n-title="btn_close" title="Close" aria-label="Close">✕</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Container -->
     <div class="app-container">
@@ -165,6 +195,33 @@
                 </div>
             </div>
         </main>
+    </div>
+
+    <!-- Footer with Legal Links -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <p data-i18n="footer_copyright" translate="yes">&copy; 2025 Discord Embed Creator. Made with ❤️</p>
+            </div>
+            <div class="footer-links">
+                <a href="#" onclick="openLegalModal('privacy'); return false;" data-i18n="footer_privacy" translate="yes">Privacy Policy</a>
+                <span class="separator">•</span>
+                <a href="#" onclick="openLegalModal('terms'); return false;" data-i18n="footer_terms" translate="yes">Terms of Use</a>
+                <span class="separator">•</span>
+                <a href="#" onclick="openLegalModal('cookies'); return false;" data-i18n="footer_cookies" translate="yes">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-consent" id="cookieConsent" style="display: none;">
+        <div class="cookie-content">
+            <p data-i18n="cookie_consent_message" translate="yes">We use localStorage to save your preferences. By using this app, you accept our Cookie Policy.</p>
+            <div class="cookie-actions">
+                <button class="btn btn-small" id="acceptCookies" data-i18n="cookie_accept" translate="yes">Accept</button>
+                <a href="#" onclick="openLegalModal('cookies'); return false;" class="btn-link" data-i18n="footer_cookies" translate="yes">Learn More</a>
+            </div>
+        </div>
     </div>
 
     <!-- Modals Container -->

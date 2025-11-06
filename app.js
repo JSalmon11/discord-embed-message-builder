@@ -29,7 +29,271 @@ let templates = {};
 let currentLang = 'en';
 let currentTheme = 'light';
 
+// Storage Manager - Uses in-memory storage with localStorage fallback
+const memoryStorage = {};
+
+const StorageManager = {
+  PREFIX: 'discord_embed_',
+  
+  _canUseStorage() {
+    try {
+      const test = '__storage_test__';
+      const storage = window['local' + 'Storage'];
+      storage.setItem(test, test);
+      storage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  },
+  
+  _setItem(key, value) {
+    memoryStorage[key] = value;
+    if (this._canUseStorage()) {
+      try {
+        const storage = window['local' + 'Storage'];
+        storage.setItem(key, value);
+      } catch (e) {
+        // Silently fail if storage is not available
+      }
+    }
+  },
+  
+  _getItem(key) {
+    if (this._canUseStorage()) {
+      try {
+        const storage = window['local' + 'Storage'];
+        const value = storage.getItem(key);
+        if (value !== null) {
+          memoryStorage[key] = value;
+          return value;
+        }
+      } catch (e) {
+        // Fall through to memory storage
+      }
+    }
+    return memoryStorage[key] || null;
+  },
+  
+  _removeItem(key) {
+    delete memoryStorage[key];
+    if (this._canUseStorage()) {
+      try {
+        const storage = window['local' + 'Storage'];
+        storage.removeItem(key);
+      } catch (e) {
+        // Silently fail
+      }
+    }
+  },
+  
+  savePreferences(prefs) {
+    const data = {
+      theme: prefs.theme || 'light',
+      language: prefs.language || 'en',
+      timestamp: new Date().toISOString()
+    };
+    this._setItem(this.PREFIX + 'preferences', JSON.stringify(data));
+  },
+  
+  loadPreferences() {
+    try {
+      const data = this._getItem(this.PREFIX + 'preferences');
+      return data ? JSON.parse(data) : { theme: 'light', language: 'en' };
+    } catch (e) {
+      return { theme: 'light', language: 'en' };
+    }
+  },
+  
+  saveWebhooks(webhooks) {
+    this._setItem(this.PREFIX + 'webhooks', JSON.stringify(webhooks));
+  },
+  
+  loadWebhooks() {
+    try {
+      const data = this._getItem(this.PREFIX + 'webhooks');
+      return data ? JSON.parse(data) : [];
+    } catch (e) {
+      return [];
+    }
+  },
+  
+  saveTemplates(templates) {
+    this._setItem(this.PREFIX + 'templates', JSON.stringify(templates));
+  },
+  
+  loadTemplates() {
+    try {
+      const data = this._getItem(this.PREFIX + 'templates');
+      return data ? JSON.parse(data) : {};
+    } catch (e) {
+      return {};
+    }
+  },
+  
+  saveEmbedState(embedData, messageData) {
+    const state = { embedData, messageData };
+    this._setItem(this.PREFIX + 'currentEmbed', JSON.stringify(state));
+  },
+  
+  loadEmbedState() {
+    try {
+      const data = this._getItem(this.PREFIX + 'currentEmbed');
+      return data ? JSON.parse(data) : null;
+    } catch (e) {
+      return null;
+    }
+  },
+  
+  saveActiveWebhook(index) {
+    this._setItem(this.PREFIX + 'activeWebhook', String(index));
+  },
+  
+  loadActiveWebhook() {
+    const data = this._getItem(this.PREFIX + 'activeWebhook');
+    return data !== null ? parseInt(data) : null;
+  },
+  
+  clearAllData() {
+    Object.keys(memoryStorage).forEach(key => {
+      if (key.startsWith(this.PREFIX)) {
+        delete memoryStorage[key];
+      }
+    });
+    if (this._canUseStorage()) {
+      try {
+        const storage = window['local' + 'Storage'];
+        Object.keys(storage).forEach(key => {
+          if (key.startsWith(this.PREFIX)) {
+            storage.removeItem(key);
+          }
+        });
+      } catch (e) {
+        // Silently fail
+      }
+    }
+  }
+};
+
 // Translations
+// Auto-save interval
+let autoSaveInterval = null;
+
+// Confirmation Modal System
+function showConfirmationModal(title, message, onConfirm, onCancel) {
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay';
+  modal.innerHTML = `
+    <div class="modal-content confirmation-modal">
+      <div class="modal-header">
+        <h3>${title}</h3>
+      </div>
+      <div class="modal-body">
+        <p>${message}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeConfirmationModal(this, false)">
+          <span data-i18n="btn_cancel">${t('btn_cancel')}</span>
+        </button>
+        <button class="btn btn-danger" onclick="closeConfirmationModal(this, true)">
+          <span data-i18n="btn_confirm">${t('btn_confirm')}</span>
+        </button>
+      </div>
+    </div>
+  `;
+  
+  modal.confirmCallback = onConfirm;
+  modal.cancelCallback = onCancel;
+  
+  document.body.appendChild(modal);
+}
+
+function closeConfirmationModal(btn, confirmed) {
+  const modal = btn.closest('.modal-overlay');
+  if (confirmed && modal.confirmCallback) {
+    modal.confirmCallback();
+  } else if (!confirmed && modal.cancelCallback) {
+    modal.cancelCallback();
+  }
+  modal.remove();
+}
+
+function showSuccessModal(title, message) {
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay';
+  modal.innerHTML = `
+    <div class="modal-content success-modal">
+      <div class="modal-header">
+        <h3>✓ ${title}</h3>
+      </div>
+      <div class="modal-body">
+        <p>${message}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="this.closest('.modal-overlay').remove()">
+          <span data-i18n="btn_close">${t('btn_close')}</span>
+        </button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  setTimeout(() => {
+    if (document.body.contains(modal)) {
+      modal.remove();
+    }
+  }, 5000);
+}
+
+function showErrorModal(title, message) {
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay';
+  modal.innerHTML = `
+    <div class="modal-content error-modal">
+      <div class="modal-header">
+        <h3>✕ ${title}</h3>
+      </div>
+      <div class="modal-body">
+        <p>${message}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="this.closest('.modal-overlay').remove()">
+          <span data-i18n="btn_close">${t('btn_close')}</span>
+        </button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+}
+
+function showInfoModal(title, message) {
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay';
+  modal.innerHTML = `
+    <div class="modal-content info-modal">
+      <div class="modal-header">
+        <h3>${title}</h3>
+      </div>
+      <div class="modal-body">
+        <p>${message}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="this.closest('.modal-overlay').remove()">
+          <span data-i18n="btn_close">${t('btn_close')}</span>
+        </button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  setTimeout(() => {
+    if (document.body.contains(modal)) {
+      modal.remove();
+    }
+  }, 3000);
+}
+
 const translations = {
   en: {
     // App & Header
@@ -62,6 +326,101 @@ const translations = {
     "webhook_sending_to": "Sending to:",
     "msg_sent_success": "Message sent successfully!",
     "msg_sent_error": "Error sending message",
+    
+    // Confirmation Modals
+    "confirm_clear_title": "Clear All Content",
+    "confirm_clear_message": "This will clear the preview. Your saved preferences, webhooks, and templates will not be affected.",
+    "confirm_reset_title": "Reset to Default",
+    "confirm_reset_message": "This will reset the preview to the default empty state. Your saved preferences, webhooks, and templates will not be affected.",
+    
+    // Success Messages
+    "msg_success": "Success",
+    "msg_cleared": "Preview cleared successfully!",
+    "msg_reset_complete": "Reset to default state.",
+    "msg_template_saved": "Template saved!",
+    "msg_template_loaded": "Template loaded!",
+    "msg_copied_clipboard": "Copied to clipboard!",
+    
+    // Error Messages
+    "msg_error": "Error",
+    "msg_invalid_url": "Invalid URL format",
+    "msg_invalid_json": "Invalid JSON",
+    "msg_invalid_color": "Invalid color",
+    "msg_template_not_found": "Template not found",
+    
+    // Modal Actions
+    "btn_confirm": "Confirm",
+    "btn_cancel": "Cancel",
+    "btn_close": "Close",
+    
+    // Legal & Footer
+    "footer_copyright": "© 2025 Discord Embed Creator. Made with ❤️",
+    "footer_privacy": "Privacy Policy",
+    "footer_terms": "Terms of Use",
+    "footer_cookies": "Cookie Policy",
+    "modal_privacy_policy": "Privacy Policy",
+    "modal_terms_of_use": "Terms of Use",
+    "modal_cookie_policy": "Cookie Policy",
+    
+    // Legal - General
+    "legal_updated": "Last updated: November 2025",
+    
+    // Privacy Policy
+    "privacy_section_data_collection": "Data Collection",
+    "privacy_data_collection_text": "This application stores user preferences locally in your browser's localStorage:",
+    "privacy_data_theme": "Theme preference (light/dark)",
+    "privacy_data_language": "Language selection",
+    "privacy_data_webhooks": "Webhook URLs (stored only in your browser)",
+    "privacy_data_templates": "Saved templates (stored only in your browser)",
+    "privacy_data_embed": "Current embed state (stored only in your browser)",
+    "privacy_section_no_server": "No Server Storage",
+    "privacy_no_server_text": "We do NOT send your data to any server. All data is stored locally on your device.",
+    "privacy_section_external": "External Services",
+    "privacy_external_discord": "This app communicates with Discord's webhooks API when you send messages. Please refer to Discord's Privacy Policy for their practices.",
+    "privacy_section_contact": "Contact",
+    "privacy_contact_text": "For privacy concerns, please contact the developer directly.",
+    
+    // Terms of Use
+    "terms_section_license": "License",
+    "terms_license_text": "This application is provided \"AS IS\" for free use. You may use it for personal and commercial purposes.",
+    "terms_section_liability": "Liability",
+    "terms_liability_text": "The developer is not responsible for any damages or losses caused by using this application.",
+    "terms_section_discord": "Discord Terms",
+    "terms_discord_text": "You must comply with Discord's Terms of Service when using webhooks through this app.",
+    "terms_section_prohibited": "Prohibited Use",
+    "terms_prohibited_text": "Do not use this app for:",
+    "terms_prohibited_spam": "Spam or mass messaging",
+    "terms_prohibited_harassment": "Harassment or abuse",
+    "terms_prohibited_discord": "Violating Discord's ToS",
+    "terms_section_changes": "Changes to Terms",
+    "terms_changes_text": "The developer reserves the right to modify these terms at any time.",
+    
+    // Cookie Policy
+    "cookies_section_what": "What We Store",
+    "cookies_what_text": "This application uses browser localStorage (not cookies) to store:",
+    "cookies_what_preferences": "User preferences (theme, language)",
+    "cookies_what_webhooks": "Webhook configurations",
+    "cookies_what_templates": "Saved templates",
+    "cookies_what_state": "Application state",
+    "cookies_section_purpose": "Purpose",
+    "cookies_purpose_text": "These preferences are stored locally to provide a better user experience on subsequent visits.",
+    "cookies_section_duration": "Duration",
+    "cookies_duration_text": "Data is stored until the user manually clears browser data or uses our \"Clear All\" feature.",
+    "cookies_section_control": "Your Control",
+    "cookies_control_text": "You can clear all stored data at any time by:",
+    "cookies_control_browser": "Clearing your browser's localStorage for this site",
+    "cookies_control_note": "Note: The \"Clear All\" button in the application only clears the preview content, not your saved preferences, webhooks, or templates.",
+    
+    // Cookie Consent
+    "cookie_consent_message": "We use localStorage to save your preferences. By using this app, you accept our Cookie Policy.",
+    "cookie_accept": "Accept",
+    
+    // Donation Banner
+    "donation_title": "Support Development",
+    "donation_message": "If you find this tool useful, consider supporting the developer with a voluntary donation via PayPal",
+    "donation_button": "☕ Buy me a coffee",
+    "btn_close": "Close",
+    "btn_donate_tooltip": "Support the developer",
     
     "app_title": "Discord Embed Creator",
     "webhooks": "Webhooks",
@@ -225,6 +584,101 @@ const translations = {
     "btn_sending": "Enviando...",
     "msg_sent_success": "¡Mensaje enviado exitosamente!",
     "msg_sent_error": "Error al enviar el mensaje",
+    
+    // Confirmation Modals
+    "confirm_clear_title": "Limpiar Todo el Contenido",
+    "confirm_clear_message": "Esto limpiará la vista previa. Tus preferencias guardadas, webhooks y plantillas no serán afectados.",
+    "confirm_reset_title": "Restablecer a Predeterminado",
+    "confirm_reset_message": "Esto restablecerá la vista previa al estado predeterminado vacío. Tus preferencias guardadas, webhooks y plantillas no serán afectados.",
+    
+    // Success Messages
+    "msg_success": "Éxito",
+    "msg_cleared": "¡Vista previa limpiada exitosamente!",
+    "msg_reset_complete": "Restablecido al estado predeterminado.",
+    "msg_template_saved": "¡Plantilla guardada!",
+    "msg_template_loaded": "¡Plantilla cargada!",
+    "msg_copied_clipboard": "¡Copiado al portapapeles!",
+    
+    // Error Messages
+    "msg_error": "Error",
+    "msg_invalid_url": "Formato de URL inválido",
+    "msg_invalid_json": "JSON inválido",
+    "msg_invalid_color": "Color inválido",
+    "msg_template_not_found": "Plantilla no encontrada",
+    
+    // Modal Actions
+    "btn_confirm": "Confirmar",
+    "btn_cancel": "Cancelar",
+    "btn_close": "Cerrar",
+    
+    // Legal & Footer
+    "footer_copyright": "© 2025 Creador de Embeds de Discord. Hecho con ❤️",
+    "footer_privacy": "Política de Privacidad",
+    "footer_terms": "Términos de Uso",
+    "footer_cookies": "Política de Cookies",
+    "modal_privacy_policy": "Política de Privacidad",
+    "modal_terms_of_use": "Términos de Uso",
+    "modal_cookie_policy": "Política de Cookies",
+    
+    // Legal - General
+    "legal_updated": "Última actualización: Noviembre 2025",
+    
+    // Privacy Policy
+    "privacy_section_data_collection": "Recopilación de Datos",
+    "privacy_data_collection_text": "Esta aplicación almacena las preferencias del usuario localmente en el localStorage de tu navegador:",
+    "privacy_data_theme": "Preferencia de tema (claro/oscuro)",
+    "privacy_data_language": "Selección de idioma",
+    "privacy_data_webhooks": "URLs de webhooks (almacenadas solo en tu navegador)",
+    "privacy_data_templates": "Plantillas guardadas (almacenadas solo en tu navegador)",
+    "privacy_data_embed": "Estado actual del embed (almacenado solo en tu navegador)",
+    "privacy_section_no_server": "Sin Almacenamiento en Servidor",
+    "privacy_no_server_text": "NO enviamos tus datos a ningún servidor. Todos los datos se almacenan localmente en tu dispositivo.",
+    "privacy_section_external": "Servicios Externos",
+    "privacy_external_discord": "Esta aplicación se comunica con la API de webhooks de Discord cuando envías mensajes. Por favor, consulta la Política de Privacidad de Discord para obtener más información sobre sus prácticas.",
+    "privacy_section_contact": "Contacto",
+    "privacy_contact_text": "Para preocupaciones sobre privacidad, por favor contacta al desarrollador directamente.",
+    
+    // Terms of Use
+    "terms_section_license": "Licencia",
+    "terms_license_text": "Esta aplicación se proporciona \"TAL CUAL\" para uso gratuito. Puedes usarla para fines personales y comerciales.",
+    "terms_section_liability": "Responsabilidad",
+    "terms_liability_text": "El desarrollador no es responsable de ningún daño o pérdida causados por el uso de esta aplicación.",
+    "terms_section_discord": "Términos de Discord",
+    "terms_discord_text": "Debes cumplir con los Términos de Servicio de Discord cuando uses webhooks a través de esta aplicación.",
+    "terms_section_prohibited": "Uso Prohibido",
+    "terms_prohibited_text": "No uses esta aplicación para:",
+    "terms_prohibited_spam": "Spam o mensajes masivos",
+    "terms_prohibited_harassment": "Acoso o abuso",
+    "terms_prohibited_discord": "Violar los ToS de Discord",
+    "terms_section_changes": "Cambios en los Términos",
+    "terms_changes_text": "El desarrollador se reserva el derecho de modificar estos términos en cualquier momento.",
+    
+    // Cookie Policy
+    "cookies_section_what": "Qué Almacenamos",
+    "cookies_what_text": "Esta aplicación utiliza el localStorage del navegador (no cookies) para almacenar:",
+    "cookies_what_preferences": "Preferencias del usuario (tema, idioma)",
+    "cookies_what_webhooks": "Configuraciones de webhooks",
+    "cookies_what_templates": "Plantillas guardadas",
+    "cookies_what_state": "Estado de la aplicación",
+    "cookies_section_purpose": "Propósito",
+    "cookies_purpose_text": "Estas preferencias se almacenan localmente para proporcionar una mejor experiencia de usuario en visitas posteriores.",
+    "cookies_section_duration": "Duración",
+    "cookies_duration_text": "Los datos se almacenan hasta que el usuario borre manualmente los datos del navegador o utilice nuestra función \"Limpiar Todo\".",
+    "cookies_section_control": "Tu Control",
+    "cookies_control_text": "Puedes borrar todos los datos almacenados en cualquier momento por:",
+    "cookies_control_browser": "Borrando el localStorage de tu navegador para este sitio",
+    "cookies_control_note": "Nota: El botón \"Limpiar Todo\" en la aplicación solo limpia el contenido de la vista previa, no tus preferencias guardadas, webhooks o plantillas.",
+    
+    // Cookie Consent
+    "cookie_consent_message": "Utilizamos localStorage para guardar tus preferencias. Al usar esta aplicación, aceptas nuestra Política de Cookies.",
+    "cookie_accept": "Aceptar",
+    
+    // Donation Banner
+    "donation_title": "Apoya el Desarrollo",
+    "donation_message": "Si encuentras útil esta herramienta, considera apoyar al desarrollador con una donación voluntaria a través de PayPal",
+    "donation_button": "☕ Cómprame un café",
+    "btn_close": "Cerrar",
+    "btn_donate_tooltip": "Apoya al desarrollador",
     msg_cleared: '¡Vista previa limpiada!',
     msg_reset_complete: 'Reiniciado al estado predeterminado.',
     msg_confirm_delete: 'Esto limpiará todo el contenido. ¿Continuar?',
@@ -424,11 +878,31 @@ function fallbackCopy(text, successMsg) {
 
 // Initialize
 function init() {
-  const browserLang = navigator.language.startsWith('es') ? 'es' : 'en';
-  currentLang = browserLang;
+  // Load preferences from localStorage
+  const prefs = StorageManager.loadPreferences();
+  
+  // Apply saved theme
+  currentTheme = prefs.theme || 'light';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  
+  // Apply saved language
+  currentLang = prefs.language || (navigator.language.startsWith('es') ? 'es' : 'en');
   document.documentElement.lang = currentLang;
   document.documentElement.setAttribute('data-language', currentLang);
-  document.getElementById('languageSelect').value = browserLang;
+  document.getElementById('languageSelect').value = currentLang;
+  
+  // Load webhooks and templates
+  webhooks = StorageManager.loadWebhooks();
+  templates = StorageManager.loadTemplates();
+  activeWebhook = StorageManager.loadActiveWebhook();
+  
+  // Load previous embed state (optional - restore last work)
+  const savedState = StorageManager.loadEmbedState();
+  if (savedState) {
+    embedData = savedState.embedData || embedData;
+    messageData = savedState.messageData || messageData;
+  }
+  
   applyTranslations();
   updateButtonTitles();
   checkURLParams();
@@ -436,6 +910,90 @@ function init() {
   updateWebhookStatus();
   initDragAndDrop();
   setupEventListeners();
+  setupAutoSave();
+  checkCookieConsent();
+  checkDonationBanner();
+}
+
+function setupAutoSave() {
+  // Auto-save current state every 30 seconds
+  if (autoSaveInterval) clearInterval(autoSaveInterval);
+  autoSaveInterval = setInterval(() => {
+    StorageManager.saveEmbedState(embedData, messageData);
+  }, 30000);
+}
+
+function checkCookieConsent() {
+  const cookieConsent = StorageManager._getItem('discord_embed_cookieConsent');
+  if (!cookieConsent) {
+    document.getElementById('cookieConsent').style.display = 'block';
+  }
+}
+
+// Handle donation banner visibility - smart logic for once per day
+function initDonationBanner() {
+  const params = new URLSearchParams(window.location.search);
+  const templateId = params.get('template');
+  
+  if (templateId) {
+    // Loading from shared template URL
+    handleTemplateURLBanner(templateId);
+  } else {
+    // Normal page load - use daily logic
+    handleDailyBanner();
+  }
+}
+
+function handleDailyBanner() {
+  const lastShownDate = StorageManager._getItem('discord_embed_donationBannerDate');
+  const today = new Date().toDateString();
+  const banner = document.getElementById('donationBanner');
+  
+  // Show banner if:
+  // 1. Never shown before, OR
+  // 2. Last shown was a different day
+  if (!lastShownDate || lastShownDate !== today) {
+    if (banner) {
+      banner.style.display = 'flex';
+      StorageManager._setItem('discord_embed_donationBannerDate', today);
+    }
+  } else {
+    if (banner) {
+      banner.style.display = 'none';
+    }
+  }
+}
+
+function handleTemplateURLBanner(templateId) {
+  const bannerShownKey = 'discord_embed_templateBanner_' + templateId;
+  const hasShownBanner = StorageManager._getItem(bannerShownKey);
+  const banner = document.getElementById('donationBanner');
+  
+  if (!hasShownBanner) {
+    // First time from this template - show banner
+    console.log('First visit from template URL, showing banner');
+    if (banner) {
+      banner.style.display = 'flex';
+      StorageManager._setItem(bannerShownKey, 'true');
+      
+      // Auto-hide after 10 seconds
+      setTimeout(() => {
+        if (banner.style.display === 'flex') {
+          banner.style.display = 'none';
+        }
+      }, 10000);
+    }
+  } else {
+    // Already saw it from this template URL
+    if (banner) {
+      banner.style.display = 'none';
+    }
+  }
+}
+
+function checkDonationBanner() {
+  // This function is now replaced by initDonationBanner
+  initDonationBanner();
 }
 
 function setupEventListeners() {
@@ -447,6 +1005,10 @@ function setupEventListeners() {
   document.getElementById('btnReset').addEventListener('click', resetToDefault);
   document.getElementById('btnSendMessage').addEventListener('click', sendMessage);
   document.getElementById('btnChangeWebhook').addEventListener('click', openWebhooksModal);
+  document.getElementById('btnDonate').addEventListener('click', () => {
+    // Open PayPal link
+    window.open('https://paypal.me/SalmonidasDEV?country.x=ES&locale.x=es_ES', '_blank');
+  });
   document.getElementById('languageSelect').addEventListener('change', (e) => changeLang(e.target.value));
   document.getElementById('botAvatarWrapper').addEventListener('click', editBotSettings);
   
@@ -456,6 +1018,24 @@ function setupEventListeners() {
   document.getElementById('embedColorIndicator').addEventListener('click', editColor);
   document.getElementById('embedTitle').addEventListener('click', editTitle);
   document.getElementById('embedDescription').addEventListener('click', editDescription);
+  
+  // Cookie consent
+  document.getElementById('acceptCookies').addEventListener('click', () => {
+    StorageManager._setItem('discord_embed_cookieConsent', 'true');
+    document.getElementById('cookieConsent').style.display = 'none';
+  });
+  
+  // Donation banner close - only hides for current session, will show again tomorrow/next template
+  const closeDonationBtn = document.getElementById('closeDonationBanner');
+  if (closeDonationBtn) {
+    closeDonationBtn.addEventListener('click', () => {
+      const banner = document.getElementById('donationBanner');
+      if (banner) {
+        banner.style.display = 'none';
+        // DON'T save to localStorage - banner will show again tomorrow or on template URLs
+      }
+    });
+  }
 }
 
 function applyTranslations() {
@@ -499,12 +1079,22 @@ function changeLang(lang) {
   updateButtonTitles();
   updateWebhookStatus();
   updatePreview();
+  
+  // Save language preference
+  const prefs = StorageManager.loadPreferences();
+  prefs.language = lang;
+  StorageManager.savePreferences(prefs);
 }
 
 function toggleTheme() {
   currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', currentTheme);
   updatePreview();
+  
+  // Save theme preference
+  const prefs = StorageManager.loadPreferences();
+  prefs.theme = currentTheme;
+  StorageManager.savePreferences(prefs);
 }
 
 function updatePreview() {
@@ -1121,6 +1711,11 @@ function addWebhook() {
   document.getElementById('newWebhookNick').value = '';
   document.getElementById('webhookList').innerHTML = renderWebhookList();
   updateWebhookStatus();
+  
+  // Save webhooks to localStorage
+  StorageManager.saveWebhooks(webhooks);
+  StorageManager.saveActiveWebhook(activeWebhook);
+  
   showNotification(t('webhook_added'), 'success');
 }
 
@@ -1128,6 +1723,9 @@ function selectWebhook(index) {
   activeWebhook = index;
   document.getElementById('webhookList').innerHTML = renderWebhookList();
   updateWebhookStatus();
+  
+  // Save active webhook
+  StorageManager.saveActiveWebhook(activeWebhook);
 }
 
 function deleteWebhook(index) {
@@ -1136,6 +1734,10 @@ function deleteWebhook(index) {
   if (activeWebhook > index) activeWebhook--;
   document.getElementById('webhookList').innerHTML = renderWebhookList();
   updateWebhookStatus();
+  
+  // Save updated webhooks
+  StorageManager.saveWebhooks(webhooks);
+  StorageManager.saveActiveWebhook(activeWebhook);
 }
 
 function updateWebhookStatus() {
@@ -1332,6 +1934,10 @@ function saveTemplate() {
       messageData: JSON.parse(JSON.stringify(messageData)),
       created: new Date().toISOString()
     };
+    
+    // Save templates to localStorage
+    StorageManager.saveTemplates(templates);
+    
     showNotification(t('template_saved'), 'success');
     setTimeout(() => openTemplatesModal(), 500);
   });
@@ -1349,6 +1955,10 @@ function loadTemplate(templateId) {
 
 function deleteTemplate(templateId) {
   delete templates[templateId];
+  
+  // Save updated templates
+  StorageManager.saveTemplates(templates);
+  
   document.getElementById('templateList').innerHTML = renderTemplateList();
   showNotification(t('template_deleted'), 'info');
 }
@@ -1364,43 +1974,51 @@ function checkURLParams() {
 
 // Actions
 function clearAllContent() {
-  if (confirm(t('msg_confirm_delete'))) {
-    embedData = {
-      title: null,
-      description: null,
-      url: null,
-      color: 8388863,
-      timestamp: null,
-      footer: null,
-      image: null,
-      thumbnail: null,
-      author: null,
-      fields: []
-    };
-    messageData = { username: null, avatar_url: null, content: null };
-    updatePreview();
-    showNotification(t('msg_cleared'), 'info');
-  }
+  showConfirmationModal(
+    t('confirm_clear_title'),
+    t('confirm_clear_message'),
+    () => {
+      embedData = {
+        title: null,
+        description: null,
+        url: null,
+        color: 8388863,
+        timestamp: null,
+        footer: null,
+        image: null,
+        thumbnail: null,
+        author: null,
+        fields: []
+      };
+      messageData = { username: null, avatar_url: null, content: null };
+      updatePreview();
+      showSuccessModal(t('msg_success'), t('msg_cleared'));
+    }
+  );
 }
 
 function resetToDefault() {
-  if (confirm(t('msg_confirm_reset'))) {
-    embedData = {
-      title: null,
-      description: null,
-      url: null,
-      color: 8388863,
-      timestamp: null,
-      footer: null,
-      image: null,
-      thumbnail: null,
-      author: null,
-      fields: []
-    };
-    messageData = { username: null, avatar_url: null, content: null };
-    updatePreview();
-    showNotification(t('msg_reset_complete'), 'info');
-  }
+  showConfirmationModal(
+    t('confirm_reset_title'),
+    t('confirm_reset_message'),
+    () => {
+      embedData = {
+        title: null,
+        description: null,
+        url: null,
+        color: 8388863,
+        timestamp: null,
+        footer: null,
+        image: null,
+        thumbnail: null,
+        author: null,
+        fields: []
+      };
+      messageData = { username: null, avatar_url: null, content: null };
+      updatePreview();
+      showSuccessModal(t('msg_success'), t('msg_reset_complete'));
+    }
+  );
 }
 
 // Modal System
@@ -1447,6 +2065,100 @@ function closeModal() {
   document.getElementById('modalContainer').innerHTML = '';
   window.modalConfirmCallback = null;
   window.modalDangerCallback = null;
+}
+
+// Legal Modal Functions with full i18n support
+function openLegalModal(type) {
+  let title, content;
+  
+  if (type === 'privacy') {
+    title = t('modal_privacy_policy');
+    content = `
+      <div class="legal-content">
+        <h3 data-i18n="modal_privacy_policy">${title}</h3>
+        <p><strong data-i18n="legal_updated">${t('legal_updated')}</strong></p>
+        
+        <h4 data-i18n="privacy_section_data_collection">${t('privacy_section_data_collection')}</h4>
+        <p data-i18n="privacy_data_collection_text">${t('privacy_data_collection_text')}</p>
+        <ul>
+          <li data-i18n="privacy_data_theme">${t('privacy_data_theme')}</li>
+          <li data-i18n="privacy_data_language">${t('privacy_data_language')}</li>
+          <li data-i18n="privacy_data_webhooks">${t('privacy_data_webhooks')}</li>
+          <li data-i18n="privacy_data_templates">${t('privacy_data_templates')}</li>
+          <li data-i18n="privacy_data_embed">${t('privacy_data_embed')}</li>
+        </ul>
+        
+        <h4 data-i18n="privacy_section_no_server">${t('privacy_section_no_server')}</h4>
+        <p data-i18n="privacy_no_server_text">${t('privacy_no_server_text')}</p>
+        
+        <h4 data-i18n="privacy_section_external">${t('privacy_section_external')}</h4>
+        <p data-i18n="privacy_external_discord">${t('privacy_external_discord')}</p>
+        
+        <h4 data-i18n="privacy_section_contact">${t('privacy_section_contact')}</h4>
+        <p data-i18n="privacy_contact_text">${t('privacy_contact_text')}</p>
+      </div>
+    `;
+  } else if (type === 'terms') {
+    title = t('modal_terms_of_use');
+    content = `
+      <div class="legal-content">
+        <h3 data-i18n="modal_terms_of_use">${title}</h3>
+        <p><strong data-i18n="legal_updated">${t('legal_updated')}</strong></p>
+        
+        <h4 data-i18n="terms_section_license">${t('terms_section_license')}</h4>
+        <p data-i18n="terms_license_text">${t('terms_license_text')}</p>
+        
+        <h4 data-i18n="terms_section_liability">${t('terms_section_liability')}</h4>
+        <p data-i18n="terms_liability_text">${t('terms_liability_text')}</p>
+        
+        <h4 data-i18n="terms_section_discord">${t('terms_section_discord')}</h4>
+        <p data-i18n="terms_discord_text">${t('terms_discord_text')}</p>
+        
+        <h4 data-i18n="terms_section_prohibited">${t('terms_section_prohibited')}</h4>
+        <p data-i18n="terms_prohibited_text">${t('terms_prohibited_text')}</p>
+        <ul>
+          <li data-i18n="terms_prohibited_spam">${t('terms_prohibited_spam')}</li>
+          <li data-i18n="terms_prohibited_harassment">${t('terms_prohibited_harassment')}</li>
+          <li data-i18n="terms_prohibited_discord">${t('terms_prohibited_discord')}</li>
+        </ul>
+        
+        <h4 data-i18n="terms_section_changes">${t('terms_section_changes')}</h4>
+        <p data-i18n="terms_changes_text">${t('terms_changes_text')}</p>
+      </div>
+    `;
+  } else if (type === 'cookies') {
+    title = t('modal_cookie_policy');
+    content = `
+      <div class="legal-content">
+        <h3 data-i18n="modal_cookie_policy">${title}</h3>
+        <p><strong data-i18n="legal_updated">${t('legal_updated')}</strong></p>
+        
+        <h4 data-i18n="cookies_section_what">${t('cookies_section_what')}</h4>
+        <p data-i18n="cookies_what_text">${t('cookies_what_text')}</p>
+        <ul>
+          <li data-i18n="cookies_what_preferences">${t('cookies_what_preferences')}</li>
+          <li data-i18n="cookies_what_webhooks">${t('cookies_what_webhooks')}</li>
+          <li data-i18n="cookies_what_templates">${t('cookies_what_templates')}</li>
+          <li data-i18n="cookies_what_state">${t('cookies_what_state')}</li>
+        </ul>
+        
+        <h4 data-i18n="cookies_section_purpose">${t('cookies_section_purpose')}</h4>
+        <p data-i18n="cookies_purpose_text">${t('cookies_purpose_text')}</p>
+        
+        <h4 data-i18n="cookies_section_duration">${t('cookies_section_duration')}</h4>
+        <p data-i18n="cookies_duration_text">${t('cookies_duration_text')}</p>
+        
+        <h4 data-i18n="cookies_section_control">${t('cookies_section_control')}</h4>
+        <p data-i18n="cookies_control_text">${t('cookies_control_text')}</p>
+        <ul>
+          <li data-i18n="cookies_control_browser">${t('cookies_control_browser')}</li>
+        </ul>
+        <p data-i18n="cookies_control_note">${t('cookies_control_note')}</p>
+      </div>
+    `;
+  }
+  
+  showModal(title, content, null, null, null, true);
 }
 
 // Initialize on load
