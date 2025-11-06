@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/discord-embed-message-builder/">
-    <title>Discord Embed Creator Pro</title>
+    <title>Discord Embed Creator</title>
     
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
+    
     <header class="app-header" id="appHeader">
         <div class="header-content">
             <div class="header-branding">
-                <!-- NEW: Donate button (left side) -->
+                
                 <button class="btn-donate-icon" id="btnDonate" 
                         title="Support the developer" 
                         data-i18n-title="btn_donate_tooltip">
@@ -58,7 +58,7 @@
         </div>
     </header>
 
-    <!-- PayPal Donation Banner -->
+    
     <div class="donation-banner" id="donationBanner">
         <div class="donation-content">
             <div class="donation-text">
@@ -79,11 +79,11 @@
         </div>
     </div>
 
-    <!-- Main Container -->
+    
     <div class="app-container">
-        <!-- Left Column -->
+        
         <aside class="column-left scale-up">
-            <!-- Optional Elements Section -->
+            
             <section class="section elements-section">
                 <h3 class="section-title" data-i18n="optional_elements" translate="yes">OPTIONAL ELEMENTS</h3>
                 <div class="draggable-list" id="draggableList">
@@ -138,17 +138,17 @@
                 </div>
             </section>
 
-            <!-- Action Buttons -->
+            
             <section class="action-buttons">
-                <button class="btn btn-secondary" id="btnClearAll" data-i18n="btn_clear_all" translate="yes">Clear All</button>
-                <button class="btn btn-secondary" id="btnReset" data-i18n="btn_reset" translate="yes">Reset</button>
+                <button class="btn btn-secondary" id="btnClearAll" data-i18n="btn_clear_all">Clear All</button>
+                <button class="btn btn-primary" id="btnSaveTemplateChanges" data-i18n="btn_save_template_changes" style="display: none;">Save Template Changes</button>
             </section>
 
-            <!-- Webhook Section -->
+            
             <section class="webhook-section">
                 <div class="webhook-status" id="webhookStatus"></div>
                 <div class="send-button-area">
-                    <button class="btn btn-primary" id="btnSendMessage" data-i18n="btn_send_message" disabled translate="yes">
+                    <button class="btn btn-primary" id="btnSendMessage" disabled>
                     <span class="btn-content">
                         <span class="btn-text" data-i18n="btn_send_message">Send Message</span>
                     </span>
@@ -164,7 +164,7 @@
             </section>
         </aside>
 
-        <!-- Center Column (Preview) -->
+        
         <main class="column-center scale-up">
             <div class="preview-wrapper" id="previewWrapper">
                 <div class="discord-container">
@@ -198,7 +198,7 @@
         </main>
     </div>
 
-    <!-- Footer with Legal Links -->
+    
     <footer class="app-footer">
         <div class="footer-content">
             <div class="footer-info">
@@ -214,7 +214,7 @@
         </div>
     </footer>
 
-    <!-- Cookie Consent Banner -->
+    
     <div class="cookie-consent" id="cookieConsent" style="display: none;">
         <div class="cookie-content">
             <p data-i18n="cookie_consent_message" translate="yes">We use localStorage to save your preferences. By using this app, you accept our Cookie Policy.</p>
@@ -225,10 +225,10 @@
         </div>
     </div>
 
-    <!-- Modals Container -->
+    
     <div class="modals-container" id="modalContainer"></div>
 
-    <!-- JavaScript -->
+    
     <script src="app.js"></script>
 </body>
 </html>
