@@ -1,4 +1,4 @@
-# Discord Embed Creator Pro
+# Discord Embed Creator
 
 [🇪🇸 Versión en español](README.md)
 
