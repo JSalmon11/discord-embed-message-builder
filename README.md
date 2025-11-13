@@ -5,7 +5,7 @@
 ---
 
 **🌐 URL de la app:**   
-> [https://jsalmon11.github.io/discord-embed-message-builder](https://jsalmon11.github.io/discord-embed-message-builder/)
+> [https://salmonidas.github.io/discord-embed-message-builder](https://salmonidas.github.io/discord-embed-message-builder/)
 
 ---
 
