@@ -1,47 +1,70 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" translate="yes">
+<html lang="en" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/discord-embed-message-builder/">
-    <title>Discord Embed Creator</title>
-    
+    <title data-i18n="app_title">Discord Embed Creator</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+
     <header class="app-header" id="appHeader">
         <div class="header-content">
             <div class="header-branding">
-                
-                <button class="btn-donate-icon" id="btnDonate" 
-                        title="Support the developer" 
-                        data-i18n-title="btn_donate_tooltip">
+
+                <button class="btn-donate-icon" id="btnDonate"
+                    data-i18n-title="btn_donate_tooltip">
                     <svg class="icon-svg icon-heart" viewBox="0 0 24 24">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                     </svg>
                 </button>
-                
-                <h1 class="app-title" data-i18n="app_title" translate="yes">Discord Embed Creator</h1>
+
+                <h1 class="app-title" data-i18n="app_title">Discord Embed Creator</h1>
             </div>
+            <button class="btn-icon" id="btnHome" data-i18n-title="home" aria-label="Home"
+                style="display: none;">
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </button>
             <div class="header-actions">
-                <button class="btn-icon" id="btnWebhooks" data-i18n-title="webhooks" title="Webhooks" aria-label="Webhooks" translate="yes">
-                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                <button class="btn-icon" id="btnWebhooks" data-i18n-title="webhooks"
+                    aria-label="Webhooks">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                     </svg>
                 </button>
-                <button class="btn-icon" id="btnJSON" data-i18n-title="json" title="JSON" aria-label="JSON" translate="yes">
-                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="16 18 22 12 16 6"/>
-                        <polyline points="8 6 2 12 8 18"/>
+                <button class="btn-icon" id="btnJSON" data-i18n-title="json" aria-label="JSON">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6" />
+                        <polyline points="8 6 2 12 8 18" />
                     </svg>
                 </button>
-                <button class="btn-icon" id="btnTemplates" data-i18n-title="templates" title="Templates" aria-label="Templates" translate="yes">
-                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                        <line x1="3" y1="9" x2="21" y2="9"/>
-                        <line x1="9" y1="21" x2="9" y2="9"/>
+                <button class="btn-icon" id="btnTemplates" data-i18n-title="templates"
+                    aria-label="Templates">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <line x1="3" y1="9" x2="21" y2="9" />
+                        <line x1="9" y1="21" x2="9" y2="9" />
+                    </svg>
+                </button>
+                <button class="btn-icon" id="btnHelp" data-i18n-title="help" aria-label="Help">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
                     </svg>
                 </button>
                 <div class="header-divider"></div>
@@ -49,142 +72,162 @@
                     <option value="en">🇺🇸 EN</option>
                     <option value="es">🇪🇸 ES</option>
                 </select>
-                <button class="btn-icon theme-toggle" id="btnTheme" data-i18n-title="toggle_theme" title="Toggle theme" aria-label="Toggle theme">
-                    <svg class="icon-svg icon-theme" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                <button class="btn-icon theme-toggle" id="btnTheme" data-i18n-title="toggle_theme"
+                    aria-label="Toggle theme">
+                    <svg class="icon-svg icon-theme" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                     </svg>
                 </button>
             </div>
         </div>
     </header>
 
-    
+
     <div class="donation-banner" id="donationBanner">
         <div class="donation-content">
             <div class="donation-text">
-                <h4 data-i18n="donation_title" translate="yes">Support Development</h4>
-                <p data-i18n="donation_message" translate="yes">If you find this tool useful, consider supporting the developer with a voluntary donation via PayPal</p>
+                <h4 data-i18n="donation_title">Support Development</h4>
+                <p data-i18n="donation_message">If you find this tool useful, consider supporting the
+                    developer with a voluntary donation via PayPal</p>
             </div>
             <div class="donation-actions">
-                <a href="https://paypal.me/SalmonidasDEV?country.x=ES&locale.x=es_ES" 
-                   class="btn btn-donate" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   data-i18n="donation_button"
-                   translate="yes">
+                <a href="https://paypal.me/SalmonidasDEV?country.x=ES&locale.x=es_ES" class="btn btn-donate"
+                    target="_blank" rel="noopener noreferrer" data-i18n="donation_button">
                     ☕ Buy me a coffee
                 </a>
-                <button class="btn-close-banner" id="closeDonationBanner" data-i18n-title="btn_close" title="Close" aria-label="Close">✕</button>
+                <button class="btn-close-banner" id="closeDonationBanner" data-i18n-title="btn_close"
+                    aria-label="Close">✕</button>
             </div>
         </div>
     </div>
 
-    
-    <div class="app-container">
-        
-        <aside class="column-left scale-up">
-            
-            <section class="section elements-section">
-                <h3 class="section-title" data-i18n="optional_elements" translate="yes">OPTIONAL ELEMENTS</h3>
-                <div class="draggable-list" id="draggableList">
-                    <div class="draggable-item" draggable="true" data-element-type="author">
-                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                            <circle cx="12" cy="7" r="4"/>
-                        </svg>
-                        <span data-i18n="element_author" translate="yes">Author</span>
-                        <span class="drag-hint" data-i18n="drag_to_add" translate="yes">Drag to preview</span>
-                    </div>
-                    <div class="draggable-item" draggable="true" data-element-type="footer">
-                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="3" y1="12" x2="21" y2="12"/>
-                            <polyline points="8 8 12 4 16 8"/>
-                            <polyline points="16 16 12 20 8 16"/>
-                        </svg>
-                        <span data-i18n="element_footer" translate="yes">Footer</span>
-                        <span class="drag-hint" data-i18n="drag_to_add" translate="yes">Drag to preview</span>
-                    </div>
-                    <div class="draggable-item" draggable="true" data-element-type="image">
-                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                            <circle cx="8.5" cy="8.5" r="1.5"/>
-                            <polyline points="21 15 16 10 5 21"/>
-                        </svg>
-                        <span data-i18n="element_image" translate="yes">Image</span>
-                        <span class="drag-hint" data-i18n="drag_to_add" translate="yes">Drag to preview</span>
-                    </div>
-                    <div class="draggable-item" draggable="true" data-element-type="thumbnail">
-                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="7" height="7"/>
-                            <rect x="14" y="3" width="7" height="7"/>
-                            <rect x="14" y="14" width="7" height="7"/>
-                            <rect x="3" y="14" width="7" height="7"/>
-                        </svg>
-                        <span data-i18n="element_thumbnail" translate="yes">Thumbnail</span>
-                        <span class="drag-hint" data-i18n="drag_to_add" translate="yes">Drag to preview</span>
-                    </div>
-                    <div class="draggable-item" draggable="true" data-element-type="fields">
-                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="8" y1="6" x2="21" y2="6"/>
-                            <line x1="8" y1="12" x2="21" y2="12"/>
-                            <line x1="8" y1="18" x2="21" y2="18"/>
-                            <line x1="3" y1="6" x2="3.01" y2="6"/>
-                            <line x1="3" y1="12" x2="3.01" y2="12"/>
-                            <line x1="3" y1="18" x2="3.01" y2="18"/>
-                        </svg>
-                        <span data-i18n="element_fields" translate="yes">Fields</span>
-                        <span class="drag-hint" data-i18n="drag_to_add" translate="yes">Drag to preview</span>
-                    </div>
-                </div>
-            </section>
 
-            
+    <div class="app-container">
+
+        <aside class="column-left scale-up">
+            <div class="editor-elements-wrapper">
+
+                <section class="section elements-section">
+                    <h3 class="section-title" data-i18n="optional_elements">OPTIONAL ELEMENTS</h3>
+                    <div class="draggable-list" id="draggableList">
+                        <div class="draggable-item" draggable="true" data-element-type="author">
+                            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            <span data-i18n="element_author">Author</span>
+                            <span class="drag-hint" data-i18n="drag_to_add">Drag to preview</span>
+                            <span class="click-hint" data-i18n="click_to_add">Click to add</span>
+                        </div>
+                        <div class="draggable-item" draggable="true" data-element-type="footer">
+                            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <polyline points="8 8 12 4 16 8" />
+                                <polyline points="16 16 12 20 8 16" />
+                            </svg>
+                            <span data-i18n="element_footer">Footer</span>
+                            <span class="drag-hint" data-i18n="drag_to_add">Drag to preview</span>
+                            <span class="click-hint" data-i18n="click_to_add">Click to add</span>
+                        </div>
+                        <div class="draggable-item" draggable="true" data-element-type="image">
+                            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <polyline points="21 15 16 10 5 21" />
+                            </svg>
+                            <span data-i18n="element_image">Image</span>
+                            <span class="drag-hint" data-i18n="drag_to_add">Drag to preview</span>
+                            <span class="click-hint" data-i18n="click_to_add">Click to add</span>
+                        </div>
+                        <div class="draggable-item" draggable="true" data-element-type="thumbnail">
+                            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
+                            </svg>
+                            <span data-i18n="element_thumbnail">Thumbnail</span>
+                            <span class="drag-hint" data-i18n="drag_to_add">Drag to preview</span>
+                            <span class="click-hint" data-i18n="click_to_add">Click to add</span>
+                        </div>
+                        <div class="draggable-item" draggable="true" data-element-type="fields">
+                            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="8" y1="6" x2="21" y2="6" />
+                                <line x1="8" y1="12" x2="21" y2="12" />
+                                <line x1="8" y1="18" x2="21" y2="18" />
+                                <line x1="3" y1="6" x2="3.01" y2="6" />
+                                <line x1="3" y1="12" x2="3.01" y2="12" />
+                                <line x1="3" y1="18" x2="3.01" y2="18" />
+                            </svg>
+                            <span data-i18n="element_fields">Fields</span>
+                            <span class="drag-hint" data-i18n="drag_to_add">Drag to preview</span>
+                            <span class="click-hint" data-i18n="click_to_add">Click to add</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </aside>
+
+
+        <div id="controls-bottom-wrapper">
             <section class="action-buttons">
                 <button class="btn btn-secondary" id="btnClearAll" data-i18n="btn_clear_all">Clear All</button>
-                <button class="btn btn-primary" id="btnSaveTemplateChanges" data-i18n="btn_save_template_changes" style="display: none;">Save Template Changes</button>
+                <button class="btn btn-primary" id="btnSaveTemplateChanges" data-i18n="btn_save_template_changes"
+                    style="display: none;">Save Template Changes</button>
             </section>
 
-            
+
             <section class="webhook-section">
                 <div class="webhook-status" id="webhookStatus"></div>
                 <div class="send-button-area">
                     <button class="btn btn-primary" id="btnSendMessage" disabled>
-                    <span class="btn-content">
-                        <span class="btn-text" data-i18n="btn_send_message">Send Message</span>
-                    </span>
-                    <span class="btn-loading" style="display: none;">
-                        <span class="spinner"></span>
-                        <span class="loading-text" data-i18n="btn_sending">Sending...</span>
-                    </span>
-                </button>
-                    <button class="btn btn-secondary" id="btnChangeWebhook" data-i18n="btn_change_webhook" translate="yes" style="display: none;">
+                        <span class="btn-content">
+                            <span class="btn-text" data-i18n="btn_send_message">Send Message</span>
+                        </span>
+                        <span class="btn-loading" style="display: none;">
+                            <span class="spinner"></span>
+                            <span class="loading-text" data-i18n="btn_sending">Sending...</span>
+                        </span>
+                    </button>
+                    <button class="btn btn-secondary" id="btnChangeWebhook" data-i18n="btn_change_webhook"
+                        style="display: none;">
                         Change Webhook
                     </button>
                 </div>
             </section>
-        </aside>
+        </div>
 
-        
+
         <main class="column-center scale-up">
             <div class="preview-wrapper" id="previewWrapper">
                 <div class="discord-container">
                     <div class="discord-message">
-                        <div class="bot-avatar-wrapper" id="botAvatarWrapper" title="Click to change avatar">
+                        <div class="bot-avatar-wrapper" id="botAvatarWrapper">
                             <div class="bot-avatar" id="botAvatar">B</div>
                             <div class="avatar-overlay">
-                                <svg class="avatar-edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                <svg class="avatar-edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                                 </svg>
                             </div>
                         </div>
                         <div class="message-content">
-                            <div class="bot-username" id="botUsername" title="Click to edit bot settings" translate="yes">Webhook Bot</div>
+                            <div class="bot-username" id="botUsername"
+                                data-i18n="placeholder_username">Webhook Bot</div>
                             <div class="message-text" id="messageText"></div>
                             <div class="embed-color-indicator" id="embedColorIndicator">
                                 <div class="color-box" id="embedColorBox" style="background-color: #7c3aed;"></div>
-                                <span class="color-label" data-i18n="color" translate="yes">Color</span>
-                                <span class="click-hint" data-i18n="text_click_to_edit" translate="yes">Click to edit</span>
+                                <span class="color-label" data-i18n="color">Color</span>
+                                <span class="click-hint" data-i18n="text_click_to_edit">Click to
+                                    edit</span>
                             </div>
                             <div class="discord-embed" id="embedPreview">
                                 <div class="color-bar"></div>
@@ -198,37 +241,45 @@
         </main>
     </div>
 
-    
+
     <footer class="app-footer">
         <div class="footer-content">
             <div class="footer-info">
-                <p data-i18n="footer_copyright" translate="yes">&copy; 2025 Discord Embed Creator. Made with ❤️</p>
+                <p data-i18n="footer_copyright">&copy; 2025 Discord Embed Creator.</p>
+                <span class="separator">•</span>
+                <span id="appVersion" data-i18n="app_version">Version</span>
             </div>
             <div class="footer-links">
-                <a href="#" onclick="openLegalModal('privacy'); return false;" data-i18n="footer_privacy" translate="yes">Privacy Policy</a>
+                <a href="#" onclick="openLegalModal('privacy'); return false;" data-i18n="footer_privacy">Privacy Policy</a>
                 <span class="separator">•</span>
-                <a href="#" onclick="openLegalModal('terms'); return false;" data-i18n="footer_terms" translate="yes">Terms of Use</a>
+                <a href="#" onclick="openLegalModal('terms'); return false;" data-i18n="footer_terms">Terms of Use</a>
                 <span class="separator">•</span>
-                <a href="#" onclick="openLegalModal('cookies'); return false;" data-i18n="footer_cookies" translate="yes">Cookie Policy</a>
+                <a href="#" onclick="openLegalModal('cookies'); return false;" data-i18n="footer_cookies">Cookie Policy</a>
+                <span class="separator">•</span>
+                <a href="https://paypal.me/SalmonidasDEV?country.x=ES&locale.x=es_ES" target="_blank"
+                    rel="noopener noreferrer" data-i18n="footer_donate">Donate</a>
             </div>
         </div>
     </footer>
 
-    
+
     <div class="cookie-consent" id="cookieConsent" style="display: none;">
         <div class="cookie-content">
-            <p data-i18n="cookie_consent_message" translate="yes">We use localStorage to save your preferences. By using this app, you accept our Cookie Policy.</p>
+            <p data-i18n="cookie_consent_message">We use localStorage to save your preferences. By using
+                this app, you accept our Cookie Policy.</p>
             <div class="cookie-actions">
-                <button class="btn btn-small" id="acceptCookies" data-i18n="cookie_accept" translate="yes">Accept</button>
-                <a href="#" onclick="openLegalModal('cookies'); return false;" class="btn-link" data-i18n="footer_cookies" translate="yes">Learn More</a>
+                <button class="btn btn-small" id="acceptCookies" data-i18n="cookie_accept">Accept</button>
+                <a href="#" onclick="openLegalModal('cookies'); return false;" class="btn-link"
+                    data-i18n="footer_cookies">Learn More</a>
             </div>
         </div>
     </div>
 
-    
+
     <div class="modals-container" id="modalContainer"></div>
 
-    
+
     <script src="app.js"></script>
 </body>
+
 </html>
