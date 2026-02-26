@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://salmonidas.github.io/discord-embed-message-builder/sitemap.xml

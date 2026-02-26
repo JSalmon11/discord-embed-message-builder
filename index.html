@@ -4,10 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="/discord-embed-message-builder/">
+    <script>
+        // Set base path dynamically to support both GitHub Pages and local development
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const basePath = isLocal ? '/' : '/discord-embed-message-builder/';
+        document.write(`<base href="${basePath}">`);
+    </script>
     <title data-i18n="app_title">Discord Embed Creator</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- SEO and Open Graph Meta Tags -->
+    <meta name="description" content="Advanced visual generator for Discord embed messages. Build, preview, and send rich media messages via webhooks securely in your browser.">
+    <meta name="theme-color" content="#7c3aed">
+    <meta name="google-site-verification" content="olWP1Oxlj0I75JQlZY0_yAyUCAZ7OlD-0ej_Oe9H-rc" />
+    <link rel="canonical" href="https://salmonidas.github.io/discord-embed-message-builder/" />
+    
+    <meta property="og:title" content="Discord Embed Creator">
+    <meta property="og:description" content="Build, preview, and send professional Discord embed messages efficiently and securely directly from your browser.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://salmonidas.github.io/discord-embed-message-builder/">
+    <meta property="og:site_name" content="Discord Embed Creator">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.1.0">
 </head>
 
 <body>
@@ -279,7 +299,7 @@
     <div class="modals-container" id="modalContainer"></div>
 
 
-    <script src="app.js"></script>
+    <script src="app.js?v=1.1.0"></script>
 </body>
 
 </html>

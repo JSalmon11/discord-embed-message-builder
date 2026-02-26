@@ -1027,7 +1027,7 @@ input:focus, textarea:focus, select:focus {
 
 .app-container {
   display: grid;
-  grid-template-columns: 22% 1fr; 
+  grid-template-columns: clamp(280px, 25%, 380px) 1fr; 
   grid-template-rows: 1fr auto; 
   grid-template-areas:
     "column-left column-center"
@@ -3007,13 +3007,6 @@ input:focus, textarea:focus, select:focus {
   margin-bottom: var(--spacing-sm);
 }
 
-
-
-@media (max-width: 1200px) {
-  .column-left {
-    width: 25%;
-  }
-}
 
 @media (max-width: 1024px) {
   .app-container {
