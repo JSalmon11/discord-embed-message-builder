@@ -6,6 +6,12 @@ and this project adheres to Semantic Versioning (or visual equivalent since no p
 
 *Read this in other languages: [Español](CHANGELOG-es.md)*
 
+## [1.1.1] - 2026-03-13
+### Changed
+- Removed all PayPal references for legal/privacy reasons.
+- Enabled GitHub API auto-detection for GitHub Sponsors in the donation button (no code changes needed for future activation).
+- Appended cache-busting version parameters to CSS and JS links to satisfy deployment verification hooks.
+
 ## [1.1.0] - 2026-02-26
 ### Added
 - Standardized documentation structure (`Utilidades/`) for AI memory persistence.
@@ -25,5 +31,6 @@ and this project adheres to Semantic Versioning (or visual equivalent since no p
 - Smart templates to save, load, and share designs.
 - Private and secure configuration (all data is stored locally in the browser).
 
+[1.1.1]: https://github.com/Salmonidas/discord-embed-message-builder/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/Salmonidas/discord-embed-message-builder/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/Salmonidas/discord-embed-message-builder/releases/tag/1.0.0

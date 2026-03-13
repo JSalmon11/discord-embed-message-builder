@@ -26,7 +26,7 @@ let isTemplateView = false;
 let currentTemplateId = null;
 let originalTemplateState = null;
 
-const APP_VERSION = "1.1.0";
+const APP_VERSION = "1.1.1";
 
 let timestampUpdateInterval = null;
 let globalModalKeydownListener = null;
@@ -477,8 +477,9 @@ const translations = {
     "cookie_consent_message": "We use localStorage to save your preferences. By using this app, you accept our Cookie Policy.",
     "cookie_accept": "Accept",
     "donation_title": "Support Development",
-    "donation_message": "If you find this tool useful, consider supporting the developer with a voluntary donation via PayPal",
+    "donation_message": "If you find this tool useful, consider supporting the developer. GitHub Sponsors coming soon!",
     "donation_button": "☕ Buy me a coffee",
+    "donation_paused": "Donations are temporarily paused. GitHub Sponsors is coming soon ☕. Thank you for the support!",
     "btn_donate_tooltip": "Support the developer",
     "webhooks": "Webhooks",
     "json": "JSON",
@@ -877,8 +878,9 @@ const translations = {
     "cookie_consent_message": "Utilizamos localStorage para guardar tus preferencias. Al usar esta aplicación, aceptas nuestra Política de Cookies.",
     "cookie_accept": "Aceptar",
     "donation_title": "Apoya el Desarrollo",
-    "donation_message": "Si encuentras útil esta herramienta, considera apoyar al desarrollador con una donación voluntaria a través de PayPal",
+    "donation_message": "Si encuentras útil esta herramienta, considera apoyar al desarrollador. ¡GitHub Sponsors próximamente!",
     "donation_button": "☕ Cómprame un café",
+    "donation_paused": "Las donaciones están pausadas temporalmente. Pronto activaré GitHub Sponsors ☕. ¡Gracias por el apoyo!",
     "btn_donate_tooltip": "Apoya al desarrollador",
     "webhooks": "Webhooks",
     "json": "JSON",
@@ -1562,9 +1564,27 @@ function setupEventListeners() {
   document.getElementById('btnSaveTemplateChanges').addEventListener('click', saveTemplateChanges);
   document.getElementById('btnSendMessage').addEventListener('click', sendMessage);
   document.getElementById('btnChangeWebhook').addEventListener('click', openWebhooksModal);
-  document.getElementById('btnDonate').addEventListener('click', () => {
+  document.getElementById('btnDonate').addEventListener('click', async () => {
+    const GITHUB_USER    = "Salmonidas";
+    const SPONSORS_URL   = `https://github.com/sponsors/${GITHUB_USER}`;
 
-    window.open('https://paypal.me/SalmonidasDEV?country.x=ES&locale.x=es_ES', '_blank');
+    try {
+      // GitHub REST API is CORS-enabled and works without a token (60 req/hour/IP)
+      const res  = await fetch(`https://api.github.com/users/${GITHUB_USER}`,
+        { headers: { 'Accept': 'application/vnd.github+json' } }
+      );
+      const data = await res.json();
+
+      // `has_sponsors_listing` is true only when the Sponsors profile is published
+      if (data.has_sponsors_listing) {
+        window.open(SPONSORS_URL, '_blank');
+      } else {
+        showInfoModal('☕', t('donation_paused'));
+      }
+    } catch (_) {
+      // Network error or API down → show paused modal as safe fallback
+      showInfoModal('☕', t('donation_paused'));
+    }
   });
   document.getElementById('languageSelect').addEventListener('change', (e) => changeLang(e.target.value));
   document.getElementById('botAvatarWrapper').addEventListener('click', editBotSettings);

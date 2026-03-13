@@ -6,6 +6,12 @@ y este proyecto se adhiere al Control de Versiones Semántico (o un equivalente 
 
 *Leer en otros idiomas: [English](CHANGELOG.md)*
 
+## [1.1.1] - 2026-03-13
+### Cambiado
+- Eliminadas todas las referencias a PayPal por motivos legales y de privacidad.
+- Activada la autodetección por API de GitHub para GitHub Sponsors en el botón de donación (no requiere cambios de código para activación futura).
+- Añadidos parámetros de versión anti-caché a los enlaces CSS y JS para cumplir con los hooks de verificación de despliegue.
+
 ## [1.1.0] - 2026-02-26
 ### Añadido
 - Estructura de documentación estandarizada (`Utilidades/`) para persistencia de memoria de la IA.
@@ -25,5 +31,6 @@ y este proyecto se adhiere al Control de Versiones Semántico (o un equivalente 
 - Plantillas inteligentes para guardar, cargar y compartir diseños.
 - Configuración privada y segura (todos los datos se almacenan localmente en el navegador).
 
+[1.1.1]: https://github.com/Salmonidas/discord-embed-message-builder/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/Salmonidas/discord-embed-message-builder/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/Salmonidas/discord-embed-message-builder/releases/tag/1.0.0

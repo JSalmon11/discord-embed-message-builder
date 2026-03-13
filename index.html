@@ -27,7 +27,7 @@
     <meta property="og:url" content="https://salmonidas.github.io/discord-embed-message-builder/">
     <meta property="og:site_name" content="Discord Embed Creator">
 
-    <link rel="stylesheet" href="style.css?v=1.1.0">
+    <link rel="stylesheet" href="style.css?v=1.1.1">
 </head>
 
 <body>
@@ -109,13 +109,13 @@
             <div class="donation-text">
                 <h4 data-i18n="donation_title">Support Development</h4>
                 <p data-i18n="donation_message">If you find this tool useful, consider supporting the
-                    developer with a voluntary donation via PayPal</p>
+                    developer with a voluntary donation</p>
             </div>
             <div class="donation-actions">
-                <a href="https://paypal.me/SalmonidasDEV?country.x=ES&locale.x=es_ES" class="btn btn-donate"
-                    target="_blank" rel="noopener noreferrer" data-i18n="donation_button">
+                <button class="btn btn-donate" onclick="document.getElementById('btnDonate').click()"
+                    data-i18n="donation_button">
                     ☕ Buy me a coffee
-                </a>
+                </button>
                 <button class="btn-close-banner" id="closeDonationBanner" data-i18n-title="btn_close"
                     aria-label="Close">✕</button>
             </div>
@@ -276,8 +276,8 @@
                 <span class="separator">•</span>
                 <a href="#" onclick="openLegalModal('cookies'); return false;" data-i18n="footer_cookies">Cookie Policy</a>
                 <span class="separator">•</span>
-                <a href="https://paypal.me/SalmonidasDEV?country.x=ES&locale.x=es_ES" target="_blank"
-                    rel="noopener noreferrer" data-i18n="footer_donate">Donate</a>
+                <a href="#" onclick="document.getElementById('btnDonate').click(); return false;"
+                    data-i18n="footer_donate">Donate</a>
             </div>
         </div>
     </footer>
@@ -299,7 +299,7 @@
     <div class="modals-container" id="modalContainer"></div>
 
 
-    <script src="app.js?v=1.1.0"></script>
+    <script src="app.js?v=1.1.1"></script>
 </body>
 
 </html>
