@@ -26,7 +26,7 @@ let isTemplateView = false;
 let currentTemplateId = null;
 let originalTemplateState = null;
 
-const APP_VERSION = "1.1.1";
+const APP_VERSION = "1.1.2";
 
 let timestampUpdateInterval = null;
 let globalModalKeydownListener = null;
