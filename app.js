@@ -26,7 +26,7 @@ let isTemplateView = false;
 let currentTemplateId = null;
 let originalTemplateState = null;
 
-const APP_VERSION = "1.1.2";
+const APP_VERSION = "1.2.0";
 
 let timestampUpdateInterval = null;
 let globalModalKeydownListener = null;
@@ -427,60 +427,108 @@ const translations = {
     "footer_terms": "Terms of Use",
     "footer_cookies": "Cookie Policy",
     "footer_donate": "Donate",
+    "footer_legal_notice": "Legal Notice",
     "app_version": "Version",
     "modal_privacy_policy": "Privacy Policy",
     "modal_terms_of_use": "Terms of Use",
     "modal_cookie_policy": "Cookie Policy",
-    "legal_updated": "Last updated: November 2025",
-    "privacy_section_data_collection": "Data Collection",
-    "privacy_data_collection_text": "This application stores user preferences locally in your browser's localStorage:",
+    "modal_legal_notice": "Legal Notice",
+    "legal_updated": "Last updated: July 2026",
+    "privacy_intro": "This Privacy Policy describes how Discord Embed Creator handles information when you use the application.",
+    "privacy_section_controller": "Data Controller",
+    "privacy_controller_text": "The entity responsible for the processing of your data can be consulted at the following link:",
+    "privacy_controller_link_text": "Legal Identity of the Controller",
+    "privacy_section_data_collection": "Data Collected",
+    "privacy_data_collection_text": "This application stores data exclusively in your browser's localStorage for strictly functional purposes. The following data is stored locally on your device:",
     "privacy_data_theme": "Theme preference (light/dark)",
     "privacy_data_language": "Language selection",
-    "privacy_data_webhooks": "Webhook URLs (stored only in your browser)",
-    "privacy_data_templates": "Saved templates (stored only in your browser)",
-    "privacy_data_embed": "Current embed state (stored only in your browser)",
-    "privacy_section_no_server": "No Server Storage",
-    "privacy_no_server_text": "We do NOT send your data to any server. All data is stored locally on your device.",
-    "privacy_section_external": "External Services",
-    "privacy_external_discord": "This app communicates with Discord's webhooks API when you send messages. Please refer to Discord's Privacy Policy for their practices.",
-    "privacy_section_contact": "Contact",
-    "privacy_contact_text": "For privacy concerns, please contact the developer directly.",
+    "privacy_data_webhooks": "Webhook URLs you configure",
+    "privacy_data_templates": "Embed templates you save",
+    "privacy_data_embed": "Current embed editing state",
+    "privacy_data_consent": "Cookie consent acknowledgment status",
+    "privacy_data_banner": "Donation banner display tracking",
+    "privacy_data_tutorial": "Help tutorial shown status",
+    "privacy_section_no_server": "No Server-Side Processing",
+    "privacy_no_server_text": "This application does NOT transmit, collect, or store any personal data on external servers. All data processing happens exclusively within your browser. No user accounts, registrations, or personal data submissions exist.",
+    "privacy_section_external": "Third-Party Services",
+    "privacy_external_text": "The application interacts with the following external services only when you initiate the action:",
+    "privacy_external_discord": "Discord Webhooks API: When you explicitly send an embed message. The data you compose is sent directly to Discord's servers. Please refer to Discord's Privacy Policy.",
+    "privacy_external_github": "GitHub Pages: The application is hosted on GitHub Pages. GitHub may collect standard server logs (IP address, browser type). Please refer to GitHub's Privacy Policy.",
+    "privacy_external_lemon": "Lemon Squeezy: If you choose to make a voluntary donation via Lemon Squeezy, your payment data is processed exclusively by Lemon Squeezy. We never receive or store your payment details. Please refer to Lemon Squeezy's Privacy Policy.",
     "privacy_section_image_uploads": "Image Uploads",
-    "privacy_image_uploads_text": "When you upload an image from your device (for example, for an author icon, thumbnail, or image), the application converts it into a Base64 text format and handles it locally in your browser. This data is NOT sent to any server and is only used to generate the preview and the final JSON code that you will send to Discord.",
-    "terms_section_license": "License",
-    "terms_license_text": "This application is provided \"AS IS\" for free use. You may use it for personal and commercial purposes.",
-    "terms_section_liability": "Liability",
-    "terms_liability_text": "The developer is not responsible for any damage or loss caused by the use of this application.",
-    "terms_section_discord": "Discord Terms",
-    "terms_discord_text": "You must comply with Discord's Terms of Service when using webhooks through this application.",
-    "terms_section_prohibited": "Prohibited Use",
-    "terms_prohibited_text": "Do not use this application for:",
-    "terms_prohibited_spam": "Spam or bulk messaging",
-    "terms_prohibited_harassment": "Harassment or abuse",
-    "terms_prohibited_discord": "Violating Discord's ToS",
-    "terms_section_changes": "Changes to Terms",
-    "terms_changes_text": "The developer reserves the right to modify these terms at any time.",
-    "cookies_section_what": "What We Store",
-    "cookies_what_text": "This application uses browser localStorage (not cookies) to store:",
-    "cookies_what_preferences": "User preferences (theme, language)",
-    "cookies_what_webhooks": "Webhook settings",
-    "cookies_what_templates": "Saved templates",
-    "cookies_what_state": "Application state",
+    "privacy_image_uploads_text": "When you upload an image from your device, the application converts it into Base64 text format and handles it entirely within your browser. This data is NOT sent to any server and is only used to generate the preview and the JSON code you send to Discord.",
+    "privacy_section_retention": "Data Retention",
+    "privacy_retention_text": "All locally stored data persists until you manually clear your browser's localStorage or use the browser's built-in data clearing tools. You can delete specific data at any time.",
+    "privacy_section_rights": "Your Rights (ARSULIPO)",
+    "privacy_rights_text": "Under the General Data Protection Regulation (GDPR), you have the following rights: Access, Rectification, Suppression, Limitation, Portability, and Opposition. Since this application does not collect personal data on any server, these rights are effectively exercised by you directly through your browser's storage controls. For any concerns, contact the data controller through the link provided above.",
+    "privacy_section_contact": "Contact",
+    "privacy_contact_text": "For any privacy-related questions, you may contact the developer through the legal identity link above or via the project's GitHub repository.",
+    "terms_section_object": "Object",
+    "terms_object_text": "These Terms of Use govern the access and use of the web application Discord Embed Creator, a visual tool for creating and sending Discord embed messages via webhooks.",
+    "terms_section_license": "License & Intellectual Property",
+    "terms_license_text": "This application is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). You are free to use, modify, and distribute the source code under the terms of this license. Any modified version deployed as a network service must also make its source code available. All original design, code, and creative assets are the intellectual property of the author.",
+    "terms_section_liability": "Limitation of Liability",
+    "terms_liability_text": "The application is provided \"AS IS\" without any warranty. The developer shall not be held liable for any direct, indirect, incidental, or consequential damages arising from the use or inability to use this application, including but not limited to data loss or unauthorized access to Discord servers.",
+    "terms_section_discord": "Discord Terms Compliance",
+    "terms_discord_text": "Users must comply with Discord's Terms of Service and Community Guidelines when using webhooks through this application. The developer is not responsible for any misuse of the Discord API.",
+    "terms_section_prohibited": "Prohibited Uses",
+    "terms_prohibited_text": "The following uses of this application are strictly prohibited:",
+    "terms_prohibited_spam": "Spam, bulk messaging, or automated mass sending",
+    "terms_prohibited_harassment": "Harassment, abuse, or targeted attacks",
+    "terms_prohibited_discord": "Any activity that violates Discord's Terms of Service",
+    "terms_prohibited_illegal": "Any illegal activity under applicable law",
+    "terms_section_changes": "Modifications",
+    "terms_changes_text": "The developer reserves the right to modify these Terms at any time. Continued use of the application after changes constitutes acceptance of the new terms.",
+    "terms_section_law": "Applicable Law",
+    "terms_law_text": "These Terms are governed by Spanish law. Any dispute shall be submitted to the courts of the developer's domicile.",
+    "cookies_section_what": "Storage Technologies Used",
+    "cookies_what_text": "This application uses exclusively your browser's localStorage (not HTTP cookies) to store strictly functional data. No tracking, analytics, or marketing technologies are used.",
+    "cookies_section_table_title": "Detailed Storage Table",
+    "cookies_table_key": "Key",
+    "cookies_table_purpose": "Purpose",
+    "cookies_table_retention": "Retention",
+    "cookies_table_preferences": "Stores your theme (light/dark) and language selection",
+    "cookies_table_webhooks": "Stores the webhook URLs you configure",
+    "cookies_table_templates": "Stores the embed templates you save",
+    "cookies_table_embed": "Stores your current embed editing state",
+    "cookies_table_active_webhook": "Stores which webhook is currently selected",
+    "cookies_table_consent": "Records that you acknowledged the storage notice",
+    "cookies_table_banner": "Tracks when the donation banner was last shown",
+    "cookies_table_tutorial": "Tracks if the welcome tutorial was already shown",
+    "cookies_table_retention_value": "Until you clear browser data",
+    "cookies_section_exemption": "Legal Exemption Notice",
+    "cookies_exemption_text": "In accordance with AEPD (Spanish Data Protection Agency) guidelines, all storage used by this application qualifies as strictly technical and necessary for the service requested by the user. Therefore, no interactive consent panel with 'Accept/Reject' options is required. The informative banner is provided as a transparency measure.",
     "cookies_section_purpose": "Purpose",
-    "cookies_purpose_text": "These preferences are stored locally to provide a better user experience on subsequent visits.",
-    "cookies_section_duration": "Duration",
-    "cookies_duration_text": "Data is stored until the user manually clears browser data or uses our \"Clear All\" feature.",
+    "cookies_purpose_text": "All stored data serves exclusively to preserve your working session and preferences between visits. No data is shared with third parties or used for tracking purposes.",
     "cookies_section_control": "Your Control",
-    "cookies_control_text": "You can clear all stored data at any time by:",
-    "cookies_control_browser": "Clearing your browser's localStorage for this site",
-    "cookies_control_note": "Note: The \"Clear All\" button in the app only clears the preview content, not your saved preferences, webhooks, or templates.",
-    "cookie_consent_message": "We use localStorage to save your preferences. By using this app, you accept our Cookie Policy.",
-    "cookie_accept": "Accept",
+    "cookies_control_text": "You can delete all stored data at any time by clearing your browser's localStorage for this site through your browser's settings.",
+    "cookies_control_note": "Note: The \"Clear All\" button in the app only clears the embed preview content, not your saved preferences, webhooks, or templates.",
+    "cookie_consent_message": "This app only uses your browser's localStorage for strictly technical purposes (saving your preferences and work). No tracking or analytics cookies are used.",
+    "cookie_accept": "Got it",
+    "cookie_learn_more": "Learn More",
+    "legal_section_object": "Object",
+    "legal_object_text": "In compliance with Spanish Law 34/2002, of July 11, on Information Society Services and Electronic Commerce (LSSI-CE), the following general information about this website is provided.",
+    "legal_section_ip": "Intellectual Property",
+    "legal_ip_text": "All source code, design, graphic elements, and textual content of this website are the intellectual property of the author and are protected under the GNU Affero General Public License v3.0 (AGPL-3.0), as well as applicable intellectual property laws. Reproduction, distribution, or public communication is permitted exclusively under the terms of said license.",
+    "legal_section_liability": "Liability Exemption",
+    "legal_liability_text": "The owner is not responsible for the content of external links, the information generated by users through webhooks, or any damage derived from the improper use of this tool. The owner reserves the right to modify, suspend, or discontinue the service at any time without prior notice.",
+    "legal_section_law": "Applicable Law & Jurisdiction",
+    "legal_law_text": "This Legal Notice is governed by Spanish law. For the resolution of any dispute, the parties submit to the courts and tribunals of the owner's domicile.",
+    "legal_section_identity": "Owner Identity",
+    "legal_identity_text": "The identification details of the owner of this website, in compliance with LSSI-CE, can be consulted at the following link:",
+    "legal_identity_link_text": "Legal Identity of the Owner",
     "donation_title": "Support Development",
-    "donation_message": "If you find this tool useful, consider supporting the developer. GitHub Sponsors coming soon!",
+    "donation_message": "If you find this tool useful, consider supporting the developer with a voluntary donation.",
     "donation_button": "☕ Buy me a coffee",
-    "donation_paused": "Donations are temporarily paused. GitHub Sponsors is coming soon ☕. Thank you for the support!",
     "btn_donate_tooltip": "Support the developer",
+    "donation_modal_title": "Support the Project 💖",
+    "donation_modal_description": "Choose the method that works best for you. Every contribution helps keep this project alive and free!",
+    "donation_option_lemon": "☕ Buy me a coffee (Apple Pay, Google Pay, Card, PayPal)",
+    "donation_option_github": "🐙 GitHub Sponsors (one-time or recurring)",
+    "donation_success": "Thank you so much for your support! 💖",
+    "donation_dismiss_forever": "Don't show again",
+    "donation_dismiss_title": "No problem! 💙",
+    "donation_dismiss_message": "The banner won't appear again. If you ever want to support the project, you can always find the donation options through the 💖 heart icon in the header or the \"Donate\" link at the bottom of the page. Thank you for using the tool!",
     "webhooks": "Webhooks",
     "json": "JSON",
     "templates": "Templates",
@@ -828,60 +876,108 @@ const translations = {
     "footer_terms": "Términos de Uso",
     "footer_cookies": "Política de Cookies",
     "footer_donate": "Donar",
+    "footer_legal_notice": "Aviso Legal",
     "app_version": "Versión",
     "modal_privacy_policy": "Política de Privacidad",
     "modal_terms_of_use": "Términos de Uso",
     "modal_cookie_policy": "Política de Cookies",
-    "legal_updated": "Última actualización: Noviembre 2025",
-    "privacy_section_data_collection": "Recopilación de Datos",
-    "privacy_data_collection_text": "Esta aplicación almacena las preferencias del usuario localmente en el localStorage de tu navegador:",
+    "modal_legal_notice": "Aviso Legal",
+    "legal_updated": "Última actualización: Julio 2026",
+    "privacy_intro": "Esta Política de Privacidad describe cómo Discord Embed Creator gestiona la información cuando utilizas la aplicación.",
+    "privacy_section_controller": "Responsable del Tratamiento",
+    "privacy_controller_text": "La entidad responsable del tratamiento de tus datos puede consultarse en el siguiente enlace:",
+    "privacy_controller_link_text": "Identidad Legal del Responsable",
+    "privacy_section_data_collection": "Datos Recogidos",
+    "privacy_data_collection_text": "Esta aplicación almacena datos exclusivamente en el localStorage de tu navegador con fines estrictamente funcionales. Los siguientes datos se almacenan localmente en tu dispositivo:",
     "privacy_data_theme": "Preferencia de tema (claro/oscuro)",
     "privacy_data_language": "Selección de idioma",
-    "privacy_data_webhooks": "URLs de webhooks (almacenadas solo en tu navegador)",
-    "privacy_data_templates": "Plantillas guardadas (almacenadas solo en tu navegador)",
-    "privacy_data_embed": "Estado actual del embed (almacenado solo en tu navegador)",
-    "privacy_section_no_server": "Sin Almacenamiento en Servidor",
-    "privacy_no_server_text": "NO enviamos tus datos a ningún servidor. Todos los datos se almacenan localmente en tu dispositivo.",
-    "privacy_section_external": "Servicios Externos",
-    "privacy_external_discord": "Esta aplicación se comunica con la API de webhooks de Discord cuando envías mensajes. Por favor, consulta la Política de Privacidad de Discord para sus prácticas.",
-    "privacy_section_contact": "Contacto",
-    "privacy_contact_text": "Para preocupaciones sobre privacidad, por favor contacta al desarrollador directamente.",
+    "privacy_data_webhooks": "URLs de webhooks que configuras",
+    "privacy_data_templates": "Plantillas de embeds que guardas",
+    "privacy_data_embed": "Estado actual de edición del embed",
+    "privacy_data_consent": "Estado de reconocimiento del aviso de almacenamiento",
+    "privacy_data_banner": "Control de visualización del banner de donación",
+    "privacy_data_tutorial": "Estado del tutorial de bienvenida mostrado",
+    "privacy_section_no_server": "Sin Procesamiento en Servidor",
+    "privacy_no_server_text": "Esta aplicación NO transmite, recopila ni almacena ningún dato personal en servidores externos. Todo el procesamiento de datos ocurre exclusivamente dentro de tu navegador. No existen cuentas de usuario, registros ni envíos de datos personales.",
+    "privacy_section_external": "Servicios de Terceros",
+    "privacy_external_text": "La aplicación interactúa con los siguientes servicios externos únicamente cuando tú inicias la acción:",
+    "privacy_external_discord": "API de Webhooks de Discord: Cuando envías explícitamente un mensaje embed. Los datos que compones se envían directamente a los servidores de Discord. Consulta la Política de Privacidad de Discord.",
+    "privacy_external_github": "GitHub Pages: La aplicación está alojada en GitHub Pages. GitHub puede recopilar registros de servidor estándar (dirección IP, tipo de navegador). Consulta la Política de Privacidad de GitHub.",
+    "privacy_external_lemon": "Lemon Squeezy: Si eliges realizar una donación voluntaria a través de Lemon Squeezy, tus datos de pago son procesados exclusivamente por Lemon Squeezy. Nosotros nunca recibimos ni almacenamos tus datos de pago. Consulta la Política de Privacidad de Lemon Squeezy.",
     "privacy_section_image_uploads": "Subida de Imágenes",
-    "privacy_image_uploads_text": "Cuando subes una imagen desde tu dispositivo (por ejemplo, para el icono de autor, miniatura o imagen), la aplicación la convierte a un formato de texto Base64 y la maneja localmente en tu navegador. Estos datos NO se envían a ningún servidor y solo se utilizan para generar la vista previa y el código JSON final que enviarás a Discord.",
-    "terms_section_license": "Licencia",
-    "terms_license_text": "Esta aplicación se proporciona \"TAL CUAL\" para uso gratuito. Puedes usarla para fines personales y comerciales.",
-    "terms_section_liability": "Responsabilidad",
-    "terms_liability_text": "El desarrollador no es responsable de ningún daño o pérdida causados por el uso de esta aplicación.",
-    "terms_section_discord": "Términos de Discord",
-    "terms_discord_text": "Debes cumplir con los Términos de Servicio de Discord cuando uses webhooks a través de esta aplicación.",
-    "terms_section_prohibited": "Uso Prohibido",
-    "terms_prohibited_text": "No uses esta aplicación para:",
-    "terms_prohibited_spam": "Spam o mensajes masivos",
-    "terms_prohibited_harassment": "Acoso o abuso",
-    "terms_prohibited_discord": "Violar los ToS de Discord",
-    "terms_section_changes": "Cambios en los Términos",
-    "terms_changes_text": "El desarrollador se reserva el derecho de modificar estos términos en cualquier momento.",
-    "cookies_section_what": "Qué Almacenamos",
-    "cookies_what_text": "Esta aplicación utiliza el localStorage del navegador (no cookies) para almacenar:",
-    "cookies_what_preferences": "Preferencias del usuario (tema, idioma)",
-    "cookies_what_webhooks": "Configuraciones de webhooks",
-    "cookies_what_templates": "Plantillas guardadas",
-    "cookies_what_state": "Estado de la aplicación",
+    "privacy_image_uploads_text": "Cuando subes una imagen desde tu dispositivo, la aplicación la convierte a formato de texto Base64 y la gestiona íntegramente dentro de tu navegador. Estos datos NO se envían a ningún servidor y solo se utilizan para generar la vista previa y el código JSON que envías a Discord.",
+    "privacy_section_retention": "Retención de Datos",
+    "privacy_retention_text": "Todos los datos almacenados localmente persisten hasta que borres manualmente el localStorage de tu navegador o utilices las herramientas de borrado de datos integradas en el navegador. Puedes eliminar datos específicos en cualquier momento.",
+    "privacy_section_rights": "Tus Derechos (ARSULIPO)",
+    "privacy_rights_text": "En virtud del Reglamento General de Protección de Datos (RGPD), tienes los siguientes derechos: Acceso, Rectificación, Supresión, Limitación, Portabilidad y Oposición. Dado que esta aplicación no recopila datos personales en ningún servidor, estos derechos los ejerces directamente a través de los controles de almacenamiento de tu navegador. Para cualquier consulta, contacta al responsable del tratamiento a través del enlace proporcionado anteriormente.",
+    "privacy_section_contact": "Contacto",
+    "privacy_contact_text": "Para cualquier pregunta relacionada con la privacidad, puedes contactar al desarrollador a través del enlace de identidad legal anterior o mediante el repositorio de GitHub del proyecto.",
+    "terms_section_object": "Objeto",
+    "terms_object_text": "Estos Términos de Uso regulan el acceso y uso de la aplicación web Discord Embed Creator, una herramienta visual para crear y enviar mensajes embed de Discord mediante webhooks.",
+    "terms_section_license": "Licencia y Propiedad Intelectual",
+    "terms_license_text": "Esta aplicación está licenciada bajo la GNU Affero General Public License v3.0 (AGPL-3.0). Eres libre de usar, modificar y distribuir el código fuente bajo los términos de esta licencia. Cualquier versión modificada desplegada como servicio en red debe también hacer disponible su código fuente. Todo el diseño original, código y activos creativos son propiedad intelectual del autor.",
+    "terms_section_liability": "Limitación de Responsabilidad",
+    "terms_liability_text": "La aplicación se proporciona \"TAL CUAL\" sin ninguna garantía. El desarrollador no será responsable de ningún daño directo, indirecto, incidental o consecuente derivado del uso o la imposibilidad de uso de esta aplicación, incluyendo pero sin limitarse a la pérdida de datos o el acceso no autorizado a servidores de Discord.",
+    "terms_section_discord": "Cumplimiento de los Términos de Discord",
+    "terms_discord_text": "Los usuarios deben cumplir con los Términos de Servicio y las Directrices de la Comunidad de Discord al usar webhooks a través de esta aplicación. El desarrollador no es responsable de ningún uso indebido de la API de Discord.",
+    "terms_section_prohibited": "Usos Prohibidos",
+    "terms_prohibited_text": "Los siguientes usos de esta aplicación están estrictamente prohibidos:",
+    "terms_prohibited_spam": "Spam, mensajes masivos o envío automatizado masivo",
+    "terms_prohibited_harassment": "Acoso, abuso o ataques dirigidos",
+    "terms_prohibited_discord": "Cualquier actividad que viole los Términos de Servicio de Discord",
+    "terms_prohibited_illegal": "Cualquier actividad ilegal bajo la legislación aplicable",
+    "terms_section_changes": "Modificaciones",
+    "terms_changes_text": "El desarrollador se reserva el derecho de modificar estos Términos en cualquier momento. El uso continuado de la aplicación tras los cambios constituye la aceptación de los nuevos términos.",
+    "terms_section_law": "Legislación Aplicable",
+    "terms_law_text": "Estos Términos se rigen por la legislación española. Cualquier controversia se someterá a los juzgados y tribunales del domicilio del desarrollador.",
+    "cookies_section_what": "Tecnologías de Almacenamiento Utilizadas",
+    "cookies_what_text": "Esta aplicación utiliza exclusivamente el localStorage de tu navegador (no cookies HTTP) para almacenar datos estrictamente funcionales. No se emplean tecnologías de seguimiento, analítica ni marketing.",
+    "cookies_section_table_title": "Tabla Detallada de Almacenamiento",
+    "cookies_table_key": "Clave",
+    "cookies_table_purpose": "Propósito",
+    "cookies_table_retention": "Retención",
+    "cookies_table_preferences": "Almacena tu tema (claro/oscuro) y selección de idioma",
+    "cookies_table_webhooks": "Almacena las URLs de webhooks que configuras",
+    "cookies_table_templates": "Almacena las plantillas de embeds que guardas",
+    "cookies_table_embed": "Almacena el estado actual de edición del embed",
+    "cookies_table_active_webhook": "Almacena qué webhook está actualmente seleccionado",
+    "cookies_table_consent": "Registra que reconociste el aviso de almacenamiento",
+    "cookies_table_banner": "Controla cuándo se mostró por última vez el banner de donación",
+    "cookies_table_tutorial": "Controla si el tutorial de bienvenida ya fue mostrado",
+    "cookies_table_retention_value": "Hasta que borres los datos del navegador",
+    "cookies_section_exemption": "Aviso de Exención Legal",
+    "cookies_exemption_text": "De conformidad con las directrices de la AEPD (Agencia Española de Protección de Datos), todo el almacenamiento utilizado por esta aplicación se califica como estrictamente técnico y necesario para el servicio solicitado por el usuario. Por tanto, no se requiere un panel de consentimiento interactivo con opciones 'Aceptar/Rechazar'. El banner informativo se proporciona como medida de transparencia.",
     "cookies_section_purpose": "Propósito",
-    "cookies_purpose_text": "Estas preferencias se almacenan localmente para proporcionar una mejor experiencia de usuario en visitas posteriores.",
-    "cookies_section_duration": "Duración",
-    "cookies_duration_text": "Los datos se almacenan hasta que el usuario borre manualmente los datos del navegador o utilice nuestra función \"Limpiar Todo\".",
+    "cookies_purpose_text": "Todos los datos almacenados sirven exclusivamente para preservar tu sesión de trabajo y preferencias entre visitas. Ningún dato se comparte con terceros ni se utiliza con fines de seguimiento.",
     "cookies_section_control": "Tu Control",
-    "cookies_control_text": "Puedes borrar todos los datos almacenados en cualquier momento por:",
-    "cookies_control_browser": "Borrando el localStorage de tu navegador para este sitio",
-    "cookies_control_note": "Nota: El botón \"Limpiar Todo\" en la aplicación solo limpia el contenido de la vista previa, no tus preferencias guardadas, webhooks o plantillas.",
-    "cookie_consent_message": "Utilizamos localStorage para guardar tus preferencias. Al usar esta aplicación, aceptas nuestra Política de Cookies.",
-    "cookie_accept": "Aceptar",
+    "cookies_control_text": "Puedes eliminar todos los datos almacenados en cualquier momento borrando el localStorage de tu navegador para este sitio desde la configuración de tu navegador.",
+    "cookies_control_note": "Nota: El botón \"Limpiar Todo\" en la aplicación solo limpia el contenido de la vista previa del embed, no tus preferencias guardadas, webhooks o plantillas.",
+    "cookie_consent_message": "Esta aplicación solo utiliza el localStorage de tu navegador con fines estrictamente técnicos (guardar tus preferencias y trabajo). No se emplean cookies de seguimiento ni analítica.",
+    "cookie_accept": "Entendido",
+    "cookie_learn_more": "Más información",
+    "legal_section_object": "Objeto",
+    "legal_object_text": "En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se facilita la siguiente información general sobre este sitio web.",
+    "legal_section_ip": "Propiedad Intelectual",
+    "legal_ip_text": "Todo el código fuente, diseño, elementos gráficos y contenido textual de este sitio web son propiedad intelectual del autor y están protegidos bajo la GNU Affero General Public License v3.0 (AGPL-3.0), así como bajo las leyes de propiedad intelectual aplicables. La reproducción, distribución o comunicación pública está permitida exclusivamente bajo los términos de dicha licencia.",
+    "legal_section_liability": "Exención de Responsabilidad",
+    "legal_liability_text": "El titular no se hace responsable del contenido de los enlaces externos, de la información generada por los usuarios a través de webhooks, ni de cualquier daño derivado del uso indebido de esta herramienta. El titular se reserva el derecho de modificar, suspender o descontinuar el servicio en cualquier momento sin previo aviso.",
+    "legal_section_law": "Legislación Aplicable y Jurisdicción",
+    "legal_law_text": "Este Aviso Legal se rige por la legislación española. Para la resolución de cualquier controversia, las partes se someten a los juzgados y tribunales del domicilio del titular.",
+    "legal_section_identity": "Identidad del Titular",
+    "legal_identity_text": "Los datos identificativos del titular de este sitio web, en cumplimiento de la LSSI-CE, pueden consultarse en el siguiente enlace:",
+    "legal_identity_link_text": "Identidad Legal del Titular",
     "donation_title": "Apoya el Desarrollo",
-    "donation_message": "Si encuentras útil esta herramienta, considera apoyar al desarrollador. ¡GitHub Sponsors próximamente!",
+    "donation_message": "Si encuentras útil esta herramienta, considera apoyar al desarrollador con una donación voluntaria.",
     "donation_button": "☕ Cómprame un café",
-    "donation_paused": "Las donaciones están pausadas temporalmente. Pronto activaré GitHub Sponsors ☕. ¡Gracias por el apoyo!",
     "btn_donate_tooltip": "Apoya al desarrollador",
+    "donation_modal_title": "Apoya el Proyecto 💖",
+    "donation_modal_description": "Elige la forma que más cómoda te resulte. ¡Cada aportación ayuda a mantener este proyecto vivo y gratuito!",
+    "donation_option_lemon": "☕ Cómprame un café (Apple Pay, Google Pay, Tarjeta, PayPal)",
+    "donation_option_github": "🐙 GitHub Sponsors (puntual o periódica)",
+    "donation_success": "¡Muchísimas gracias por tu apoyo! 💖",
+    "donation_dismiss_forever": "No volver a mostrar",
+    "donation_dismiss_title": "¡Sin problema! 💙",
+    "donation_dismiss_message": "El banner no volverá a aparecer. Si en algún momento valoras el trabajo de esta web, siempre puedes encontrar las opciones de donación en el icono 💖 del corazón en la cabecera o en el enlace \"Donar\" en la parte inferior de la página. ¡Gracias por usar la herramienta!",
     "webhooks": "Webhooks",
     "json": "JSON",
     "templates": "Plantillas",
@@ -1502,33 +1598,30 @@ function initDonationBanner() {
 }
 
 function handleDailyBanner() {
-  const lastShownDate = StorageManager._getItem('discord_embed_donationBannerDate');
-  const today = new Date().toDateString();
+  const permanentlyDismissed = StorageManager._getItem('discord_embed_donationDismissed');
   const banner = document.getElementById('donationBanner');
+  if (!banner) return;
 
-
-
-
-  if (!lastShownDate || lastShownDate !== today) {
-    if (banner) {
-      banner.style.display = 'flex';
-      StorageManager._setItem('discord_embed_donationBannerDate', today);
-    }
+  if (permanentlyDismissed === 'true') {
+    banner.style.display = 'none';
   } else {
-    if (banner) {
-      banner.style.display = 'none';
-    }
+    banner.style.display = 'flex';
   }
 }
 
 function handleTemplateURLBanner(templateId) {
+  const permanentlyDismissed = StorageManager._getItem('discord_embed_donationDismissed');
+  if (permanentlyDismissed === 'true') {
+    const banner = document.getElementById('donationBanner');
+    if (banner) banner.style.display = 'none';
+    return;
+  }
+
   const bannerShownKey = 'discord_embed_templateBanner_' + templateId;
   const hasShownBanner = StorageManager._getItem(bannerShownKey);
   const banner = document.getElementById('donationBanner');
 
   if (!hasShownBanner) {
-
-    console.log('First visit from template URL, showing banner');
     if (banner) {
       banner.style.display = 'flex';
       StorageManager._setItem(bannerShownKey, 'true');
@@ -1564,28 +1657,7 @@ function setupEventListeners() {
   document.getElementById('btnSaveTemplateChanges').addEventListener('click', saveTemplateChanges);
   document.getElementById('btnSendMessage').addEventListener('click', sendMessage);
   document.getElementById('btnChangeWebhook').addEventListener('click', openWebhooksModal);
-  document.getElementById('btnDonate').addEventListener('click', async () => {
-    const GITHUB_USER    = "Salmonidas";
-    const SPONSORS_URL   = `https://github.com/sponsors/${GITHUB_USER}`;
-
-    try {
-      // GitHub REST API is CORS-enabled and works without a token (60 req/hour/IP)
-      const res  = await fetch(`https://api.github.com/users/${GITHUB_USER}`,
-        { headers: { 'Accept': 'application/vnd.github+json' } }
-      );
-      const data = await res.json();
-
-      // `has_sponsors_listing` is true only when the Sponsors profile is published
-      if (data.has_sponsors_listing) {
-        window.open(SPONSORS_URL, '_blank');
-      } else {
-        showInfoModal('☕', t('donation_paused'));
-      }
-    } catch (_) {
-      // Network error or API down → show paused modal as safe fallback
-      showInfoModal('☕', t('donation_paused'));
-    }
-  });
+  document.getElementById('btnDonate').addEventListener('click', () => openDonationModal());
   document.getElementById('languageSelect').addEventListener('change', (e) => changeLang(e.target.value));
   document.getElementById('botAvatarWrapper').addEventListener('click', editBotSettings);
 
@@ -1609,8 +1681,17 @@ function setupEventListeners() {
       const banner = document.getElementById('donationBanner');
       if (banner) {
         banner.style.display = 'none';
-
       }
+    });
+  }
+
+  const dismissForeverBtn = document.getElementById('dismissDonationForever');
+  if (dismissForeverBtn) {
+    dismissForeverBtn.addEventListener('click', () => {
+      const banner = document.getElementById('donationBanner');
+      if (banner) banner.style.display = 'none';
+      StorageManager._setItem('discord_embed_donationDismissed', 'true');
+      showInfoModal(t('donation_dismiss_title'), t('donation_dismiss_message'));
     });
   }
 }
@@ -3050,7 +3131,7 @@ function generateTemplateUrl(templateId) {
 
 function openTemplateInNewTab(templateId) {
   const templateUrl = generateTemplateUrl(templateId);
-  window.open(templateUrl, '_blank');
+  window.open(templateUrl, '_blank', 'noopener,noreferrer');
 }
 
 function copyTemplateUrlToClipboard(templateId) {
@@ -3573,95 +3654,226 @@ function openFAQModal() {
   showModal(t('modal_faq_title'), faqContentHtml, null, null, null, true);
 }
 
+let isDonationProcessing = false;
+
+function openDonationModal() {
+  const CHECKOUT_URL = 'https://salmonidas.lemonsqueezy.com/checkout/buy/61c04df0-3855-4fff-87ca-fe084713823e';
+  const GITHUB_SPONSORS_URL = 'https://github.com/sponsors/Salmonidas';
+
+  const content = `
+    <div class="legal-content" style="text-align: center;">
+      <p>${t('donation_modal_description')}</p>
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px;">
+        <button class="btn btn-primary" id="donateOptionLemon" style="width: 100%; padding: 14px 20px; font-size: 1rem;">
+          ${t('donation_option_lemon')}
+        </button>
+        <button class="btn btn-secondary" id="donateOptionGithub" style="width: 100%; padding: 14px 20px; font-size: 1rem;">
+          ${t('donation_option_github')}
+        </button>
+      </div>
+    </div>
+  `;
+
+  showModal(t('donation_modal_title'), content, null, null, null, true);
+
+  setTimeout(() => {
+    const lemonBtn = document.getElementById('donateOptionLemon');
+    const githubBtn = document.getElementById('donateOptionGithub');
+
+    if (lemonBtn) {
+      lemonBtn.addEventListener('click', () => {
+        if (isDonationProcessing) return;
+        isDonationProcessing = true;
+
+        if (typeof window !== 'undefined') {
+          if (!window.LemonSqueezy && window.createLemonSqueezy) {
+            window.createLemonSqueezy();
+          }
+
+          if (window.LemonSqueezy) {
+            window.LemonSqueezy.Setup({
+              eventHandler: (event) => {
+                if (event.event === 'Checkout.Success') {
+                  showNotification(t('donation_success'), 'success');
+                }
+              }
+            });
+            window.LemonSqueezy.Url.Open(CHECKOUT_URL);
+            isDonationProcessing = false;
+            return;
+          }
+        }
+
+        window.open(CHECKOUT_URL, '_blank', 'noopener,noreferrer');
+        setTimeout(() => { isDonationProcessing = false; }, 500);
+      });
+    }
+
+    if (githubBtn) {
+      githubBtn.addEventListener('click', () => {
+        if (isDonationProcessing) return;
+        isDonationProcessing = true;
+        window.open(GITHUB_SPONSORS_URL, '_blank', 'noopener,noreferrer');
+        const modal = githubBtn.closest('.modal-overlay');
+        if (modal) modal.remove();
+        setTimeout(() => { isDonationProcessing = false; }, 500);
+      });
+    }
+  }, 100);
+}
+
 function openLegalModal(type) {
+  const LEGAL_IDENTITY_URL = 'https://salmonidas-dev.vercel.app/legal-identity';
   let title, content;
 
   if (type === 'privacy') {
     title = t('modal_privacy_policy');
     content = `
       <div class="legal-content">
-        <h3 data-i18n="modal_privacy_policy">${title}</h3>
-        <p><strong data-i18n="legal_updated">${t('legal_updated')}</strong></p>
-        
-        <h4 data-i18n="privacy_section_data_collection">${t('privacy_section_data_collection')}</h4>
-        <p data-i18n="privacy_data_collection_text">${t('privacy_data_collection_text')}</p>
-        <ul>
-          <li data-i18n="privacy_data_theme">${t('privacy_data_theme')}</li>
-          <li data-i18n="privacy_data_language">${t('privacy_data_language')}</li>
-          <li data-i18n="privacy_data_webhooks">${t('privacy_data_webhooks')}</li>
-          <li data-i18n="privacy_data_templates">${t('privacy_data_templates')}</li>
-          <li data-i18n="privacy_data_embed">${t('privacy_data_embed')}</li>
-        </ul>
-        
-        <h4 data-i18n="privacy_section_no_server">${t('privacy_section_no_server')}</h4>
-        <p data-i18n="privacy_no_server_text">${t('privacy_no_server_text')}</p>
-        
-        <h4 data-i18n="privacy_section_external">${t('privacy_section_external')}</h4>
-        <p data-i18n="privacy_external_discord">${t('privacy_external_discord')}</p>
-        
-        <h4 data-i18n="privacy_section_contact">${t('privacy_section_contact')}</h4>
-        <p data-i18n="privacy_contact_text">${t('privacy_contact_text')}</p>
+        <h3>${title}</h3>
+        <p><strong>${t('legal_updated')}</strong></p>
+        <p>${t('privacy_intro')}</p>
 
-        <h4 data-i18n="privacy_section_image_uploads">${t('privacy_section_image_uploads')}</h4>
-        <p data-i18n="privacy_image_uploads_text">${t('privacy_image_uploads_text')}</p>
+        <h4>${t('privacy_section_controller')}</h4>
+        <p>${t('privacy_controller_text')}</p>
+        <p><a href="${LEGAL_IDENTITY_URL}" target="_blank" rel="noopener noreferrer">${t('privacy_controller_link_text')}</a></p>
+
+        <h4>${t('privacy_section_data_collection')}</h4>
+        <p>${t('privacy_data_collection_text')}</p>
+        <ul>
+          <li>${t('privacy_data_theme')}</li>
+          <li>${t('privacy_data_language')}</li>
+          <li>${t('privacy_data_webhooks')}</li>
+          <li>${t('privacy_data_templates')}</li>
+          <li>${t('privacy_data_embed')}</li>
+          <li>${t('privacy_data_consent')}</li>
+          <li>${t('privacy_data_banner')}</li>
+          <li>${t('privacy_data_tutorial')}</li>
+        </ul>
+
+        <h4>${t('privacy_section_no_server')}</h4>
+        <p>${t('privacy_no_server_text')}</p>
+
+        <h4>${t('privacy_section_external')}</h4>
+        <p>${t('privacy_external_text')}</p>
+        <ul>
+          <li>${t('privacy_external_discord')}</li>
+          <li>${t('privacy_external_github')}</li>
+          <li>${t('privacy_external_lemon')}</li>
+        </ul>
+
+        <h4>${t('privacy_section_image_uploads')}</h4>
+        <p>${t('privacy_image_uploads_text')}</p>
+
+        <h4>${t('privacy_section_retention')}</h4>
+        <p>${t('privacy_retention_text')}</p>
+
+        <h4>${t('privacy_section_rights')}</h4>
+        <p>${t('privacy_rights_text')}</p>
+
+        <h4>${t('privacy_section_contact')}</h4>
+        <p>${t('privacy_contact_text')}</p>
       </div>
     `;
   } else if (type === 'terms') {
     title = t('modal_terms_of_use');
     content = `
       <div class="legal-content">
-        <h3 data-i18n="modal_terms_of_use">${title}</h3>
-        <p><strong data-i18n="legal_updated">${t('legal_updated')}</strong></p>
-        
-        <h4 data-i18n="terms_section_license">${t('terms_section_license')}</h4>
-        <p data-i18n="terms_license_text">${t('terms_license_text')}</p>
-        
-        <h4 data-i18n="terms_section_liability">${t('terms_section_liability')}</h4>
-        <p data-i18n="terms_liability_text">${t('terms_liability_text')}</p>
-        
-        <h4 data-i18n="terms_section_discord">${t('terms_section_discord')}</h4>
-        <p data-i18n="terms_discord_text">${t('terms_discord_text')}</p>
-        
-        <h4 data-i18n="terms_section_prohibited">${t('terms_section_prohibited')}</h4>
-        <p data-i18n="terms_prohibited_text">${t('terms_prohibited_text')}</p>
+        <h3>${title}</h3>
+        <p><strong>${t('legal_updated')}</strong></p>
+
+        <h4>${t('terms_section_object')}</h4>
+        <p>${t('terms_object_text')}</p>
+
+        <h4>${t('terms_section_license')}</h4>
+        <p>${t('terms_license_text')}</p>
+
+        <h4>${t('terms_section_liability')}</h4>
+        <p>${t('terms_liability_text')}</p>
+
+        <h4>${t('terms_section_discord')}</h4>
+        <p>${t('terms_discord_text')}</p>
+
+        <h4>${t('terms_section_prohibited')}</h4>
+        <p>${t('terms_prohibited_text')}</p>
         <ul>
-          <li data-i18n="terms_prohibited_spam">${t('terms_prohibited_spam')}</li>
-          <li data-i18n="terms_prohibited_harassment">${t('terms_prohibited_harassment')}</li>
-          <li data-i18n="terms_prohibited_discord">${t('terms_prohibited_discord')}</li>
+          <li>${t('terms_prohibited_spam')}</li>
+          <li>${t('terms_prohibited_harassment')}</li>
+          <li>${t('terms_prohibited_discord')}</li>
+          <li>${t('terms_prohibited_illegal')}</li>
         </ul>
-        
-        <h4 data-i18n="terms_section_changes">${t('terms_section_changes')}</h4>
-        <p data-i18n="terms_changes_text">${t('terms_changes_text')}</p>
+
+        <h4>${t('terms_section_changes')}</h4>
+        <p>${t('terms_changes_text')}</p>
+
+        <h4>${t('terms_section_law')}</h4>
+        <p>${t('terms_law_text')}</p>
       </div>
     `;
   } else if (type === 'cookies') {
     title = t('modal_cookie_policy');
     content = `
       <div class="legal-content">
-        <h3 data-i18n="modal_cookie_policy">${title}</h3>
-        <p><strong data-i18n="legal_updated">${t('legal_updated')}</strong></p>
-        
-        <h4 data-i18n="cookies_section_what">${t('cookies_section_what')}</h4>
-        <p data-i18n="cookies_what_text">${t('cookies_what_text')}</p>
-        <ul>
-          <li data-i18n="cookies_what_preferences">${t('cookies_what_preferences')}</li>
-          <li data-i18n="cookies_what_webhooks">${t('cookies_what_webhooks')}</li>
-          <li data-i18n="cookies_what_templates">${t('cookies_what_templates')}</li>
-          <li data-i18n="cookies_what_state">${t('cookies_what_state')}</li>
-        </ul>
-        
-        <h4 data-i18n="cookies_section_purpose">${t('cookies_section_purpose')}</h4>
-        <p data-i1e="cookies_purpose_text">${t('cookies_purpose_text')}</p>
-        
-        <h4 data-i18n="cookies_section_duration">${t('cookies_section_duration')}</h4>
-        <p data-i18n="cookies_duration_text">${t('cookies_duration_text')}</p>
-        
-        <h4 data-i18n="cookies_section_control">${t('cookies_section_control')}</h4>
-        <p data-i18n="cookies_control_text">${t('cookies_control_text')}</p>
-        <ul>
-          <li data-i18n="cookies_control_browser">${t('cookies_control_browser')}</li>
-        </ul>
-        <p data-i18n="cookies_control_note">${t('cookies_control_note')}</p>
+        <h3>${title}</h3>
+        <p><strong>${t('legal_updated')}</strong></p>
+
+        <h4>${t('cookies_section_what')}</h4>
+        <p>${t('cookies_what_text')}</p>
+
+        <h4>${t('cookies_section_table_title')}</h4>
+        <table class="legal-table" style="width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border-color, #444);">
+              <th style="text-align: left; padding: 8px;">${t('cookies_table_key')}</th>
+              <th style="text-align: left; padding: 8px;">${t('cookies_table_purpose')}</th>
+              <th style="text-align: left; padding: 8px;">${t('cookies_table_retention')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--border-color, #333);"><td style="padding: 6px 8px; font-family: monospace; font-size: 0.85em;">preferences</td><td style="padding: 6px 8px;">${t('cookies_table_preferences')}</td><td style="padding: 6px 8px;">${t('cookies_table_retention_value')}</td></tr>
+            <tr style="border-bottom: 1px solid var(--border-color, #333);"><td style="padding: 6px 8px; font-family: monospace; font-size: 0.85em;">webhooks</td><td style="padding: 6px 8px;">${t('cookies_table_webhooks')}</td><td style="padding: 6px 8px;">${t('cookies_table_retention_value')}</td></tr>
+            <tr style="border-bottom: 1px solid var(--border-color, #333);"><td style="padding: 6px 8px; font-family: monospace; font-size: 0.85em;">templates</td><td style="padding: 6px 8px;">${t('cookies_table_templates')}</td><td style="padding: 6px 8px;">${t('cookies_table_retention_value')}</td></tr>
+            <tr style="border-bottom: 1px solid var(--border-color, #333);"><td style="padding: 6px 8px; font-family: monospace; font-size: 0.85em;">currentEmbed</td><td style="padding: 6px 8px;">${t('cookies_table_embed')}</td><td style="padding: 6px 8px;">${t('cookies_table_retention_value')}</td></tr>
+            <tr style="border-bottom: 1px solid var(--border-color, #333);"><td style="padding: 6px 8px; font-family: monospace; font-size: 0.85em;">activeWebhook</td><td style="padding: 6px 8px;">${t('cookies_table_active_webhook')}</td><td style="padding: 6px 8px;">${t('cookies_table_retention_value')}</td></tr>
+            <tr style="border-bottom: 1px solid var(--border-color, #333);"><td style="padding: 6px 8px; font-family: monospace; font-size: 0.85em;">cookieConsent</td><td style="padding: 6px 8px;">${t('cookies_table_consent')}</td><td style="padding: 6px 8px;">${t('cookies_table_retention_value')}</td></tr>
+            <tr style="border-bottom: 1px solid var(--border-color, #333);"><td style="padding: 6px 8px; font-family: monospace; font-size: 0.85em;">donationBannerDate</td><td style="padding: 6px 8px;">${t('cookies_table_banner')}</td><td style="padding: 6px 8px;">${t('cookies_table_retention_value')}</td></tr>
+            <tr><td style="padding: 6px 8px; font-family: monospace; font-size: 0.85em;">helpTutorialShown</td><td style="padding: 6px 8px;">${t('cookies_table_tutorial')}</td><td style="padding: 6px 8px;">${t('cookies_table_retention_value')}</td></tr>
+          </tbody>
+        </table>
+
+        <h4>${t('cookies_section_exemption')}</h4>
+        <p><strong>${t('cookies_exemption_text')}</strong></p>
+
+        <h4>${t('cookies_section_purpose')}</h4>
+        <p>${t('cookies_purpose_text')}</p>
+
+        <h4>${t('cookies_section_control')}</h4>
+        <p>${t('cookies_control_text')}</p>
+        <p>${t('cookies_control_note')}</p>
+      </div>
+    `;
+  } else if (type === 'legal') {
+    title = t('modal_legal_notice');
+    content = `
+      <div class="legal-content">
+        <h3>${title}</h3>
+        <p><strong>${t('legal_updated')}</strong></p>
+
+        <h4>${t('legal_section_object')}</h4>
+        <p>${t('legal_object_text')}</p>
+
+        <h4>${t('legal_section_ip')}</h4>
+        <p>${t('legal_ip_text')}</p>
+
+        <h4>${t('legal_section_liability')}</h4>
+        <p>${t('legal_liability_text')}</p>
+
+        <h4>${t('legal_section_law')}</h4>
+        <p>${t('legal_law_text')}</p>
+
+        <h4>${t('legal_section_identity')}</h4>
+        <p>${t('legal_identity_text')}</p>
+        <p><a href="${LEGAL_IDENTITY_URL}" target="_blank" rel="noopener noreferrer">${t('legal_identity_link_text')}</a></p>
       </div>
     `;
   }

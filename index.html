@@ -27,7 +27,7 @@
     <meta property="og:url" content="https://salmonidas.github.io/discord-embed-message-builder/">
     <meta property="og:site_name" content="Discord Embed Creator">
 
-    <link rel="stylesheet" href="style.css?v=1.1.2">
+    <link rel="stylesheet" href="style.css?v=1.2.0">
 </head>
 
 <body>
@@ -112,7 +112,7 @@
                     developer with a voluntary donation</p>
             </div>
             <div class="donation-actions">
-                <button class="btn btn-donate" onclick="document.getElementById('btnDonate').click()"
+                <button class="btn btn-donate" onclick="openDonationModal()"
                     data-i18n="donation_button">
                     ☕ Buy me a coffee
                 </button>
@@ -120,6 +120,8 @@
                     aria-label="Close">✕</button>
             </div>
         </div>
+        <a href="#" class="donation-dismiss-link" id="dismissDonationForever"
+            onclick="return false;" data-i18n="donation_dismiss_forever">Don't show again</a>
     </div>
 
 
@@ -270,13 +272,15 @@
                 <span id="appVersion" data-i18n="app_version">Version</span>
             </div>
             <div class="footer-links">
+                <a href="#" onclick="openLegalModal('legal'); return false;" data-i18n="footer_legal_notice">Legal Notice</a>
+                <span class="separator">•</span>
                 <a href="#" onclick="openLegalModal('privacy'); return false;" data-i18n="footer_privacy">Privacy Policy</a>
                 <span class="separator">•</span>
                 <a href="#" onclick="openLegalModal('terms'); return false;" data-i18n="footer_terms">Terms of Use</a>
                 <span class="separator">•</span>
                 <a href="#" onclick="openLegalModal('cookies'); return false;" data-i18n="footer_cookies">Cookie Policy</a>
                 <span class="separator">•</span>
-                <a href="#" onclick="document.getElementById('btnDonate').click(); return false;"
+                <a href="#" onclick="openDonationModal(); return false;"
                     data-i18n="footer_donate">Donate</a>
             </div>
         </div>
@@ -285,12 +289,11 @@
 
     <div class="cookie-consent" id="cookieConsent" style="display: none;">
         <div class="cookie-content">
-            <p data-i18n="cookie_consent_message">We use localStorage to save your preferences. By using
-                this app, you accept our Cookie Policy.</p>
+            <p data-i18n="cookie_consent_message">This app only uses your browser's localStorage for strictly technical purposes (saving your preferences and work). No tracking or analytics cookies are used.</p>
             <div class="cookie-actions">
-                <button class="btn btn-small" id="acceptCookies" data-i18n="cookie_accept">Accept</button>
+                <button class="btn btn-small" id="acceptCookies" data-i18n="cookie_accept">Got it</button>
                 <a href="#" onclick="openLegalModal('cookies'); return false;" class="btn-link"
-                    data-i18n="footer_cookies">Learn More</a>
+                    data-i18n="cookie_learn_more">Learn More</a>
             </div>
         </div>
     </div>
@@ -299,7 +302,8 @@
     <div class="modals-container" id="modalContainer"></div>
 
 
-    <script src="app.js?v=1.1.2"></script>
+    <script defer src="https://app.lemonsqueezy.com/js/lemon.js"></script>
+    <script src="app.js?v=1.2.0"></script>
 </body>
 
 </html>

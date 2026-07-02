@@ -6,6 +6,16 @@ y este proyecto se adhiere al Control de Versiones Semántico (o un equivalente 
 
 *Leer en otros idiomas: [English](CHANGELOG.md)*
 
+## [1.2.0] - 2026-07-02
+### Añadido
+- Sistema dual de donaciones (Lemon Squeezy + GitHub Sponsors) mediante un modal unificado.
+- Opción de "No volver a mostrar" permanentemente para el banner de donaciones.
+- Nueva página de Aviso Legal (Legal Notice) para cumplimiento LSSI-CE.
+
+### Cambiado
+- Optimizadas las peticiones a la API de donaciones para evitar problemas de límite de uso (rate-limiting).
+- Actualización mayor de la Política de Privacidad, Términos de Uso y Política de Cookies para cumplimiento de la normativa EU (ARSULIPO, uso de local storage, AGPL-3.0).
+
 ## [1.1.1] - 2026-03-13
 ### Cambiado
 - Eliminadas todas las referencias a PayPal por motivos legales y de privacidad.
@@ -31,6 +41,7 @@ y este proyecto se adhiere al Control de Versiones Semántico (o un equivalente 
 - Plantillas inteligentes para guardar, cargar y compartir diseños.
 - Configuración privada y segura (todos los datos se almacenan localmente en el navegador).
 
+[1.2.0]: https://github.com/Salmonidas/discord-embed-message-builder/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/Salmonidas/discord-embed-message-builder/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/Salmonidas/discord-embed-message-builder/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/Salmonidas/discord-embed-message-builder/releases/tag/1.0.0
