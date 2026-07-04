@@ -27,7 +27,7 @@
     <meta property="og:url" content="https://salmonidas.github.io/discord-embed-message-builder/">
     <meta property="og:site_name" content="Discord Embed Creator">
 
-    <link rel="stylesheet" href="style.css?v=1.2.0">
+    <link rel="stylesheet" href="style.css?v=1.2.1">
 </head>
 
 <body>
@@ -89,8 +89,38 @@
                 </button>
                 <div class="header-divider"></div>
                 <select class="language-select" id="languageSelect">
-                    <option value="en">🇺🇸 EN</option>
-                    <option value="es">🇪🇸 ES</option>
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="ca">Català (Catalan)</option>
+                    <option value="de-DE">Deutsch (German)</option>
+                    <option value="en-AU">English Australia</option>
+                    <option value="en-CA">English Canada</option>
+                    <option value="en">English (Generic)</option>
+                    <option value="en-IN">English India</option>
+                    <option value="en-GB">English UK</option>
+                    <option value="en-US">English US</option>
+                    <option value="es-US">Español EE. UU.</option>
+                    <option value="es-ES">Español España</option>
+                    <option value="es">Español Genérico</option>
+                    <option value="es-419">Español Latinoamérica</option>
+                    <option value="eu-ES">Euskara (Basque)</option>
+                    <option value="fr-CA">Français Canada</option>
+                    <option value="fr-FR">Français France</option>
+                    <option value="gl-ES">Galego (Galician)</option>
+                    <option value="it-IT">Italiano</option>
+                    <option value="ca-ES-mallorca">Mallorquí (Mallorquín)</option>
+                    <option value="pt-BR">Português Brasil</option>
+                    <option value="pt-PT">Português Portugal</option>
+                    <option value="vi">Tiếng Việt (Vietnamese)</option>
+                    <option value="tr-TR">Türkçe (Turkish)</option>
+                    <option value="ca-ES-valencia">Valencià (Valenciano)</option>
+                    <option disabled>──────────</option>
+                    <option value="ar">العربية (Arabic)</option>
+                    <option value="ru-RU">Русский (Russian)</option>
+                    <option value="hi-IN">हिन्दी (Hindi)</option>
+                    <option value="th">ไทย (Thai)</option>
+                    <option value="zh-CN">中文 (Chinese)</option>
+                    <option value="ja-JP">日本語 (Japanese)</option>
+                    <option value="ko-KR">한국어 (Korean)</option>
                 </select>
                 <button class="btn-icon theme-toggle" id="btnTheme" data-i18n-title="toggle_theme"
                     aria-label="Toggle theme">
@@ -267,7 +297,7 @@
     <footer class="app-footer">
         <div class="footer-content">
             <div class="footer-info">
-                <p data-i18n="footer_copyright">&copy; 2025 Discord Embed Creator.</p>
+                <p data-i18n="footer_copyright">&copy; <script>document.write(new Date().getFullYear())</script> Discord Embed Creator.</p>
                 <span class="separator">•</span>
                 <span id="appVersion" data-i18n="app_version">Version</span>
             </div>
@@ -282,6 +312,11 @@
                 <span class="separator">•</span>
                 <a href="#" onclick="openDonationModal(); return false;"
                     data-i18n="footer_donate">Donate</a>
+                <span class="developed-by-text" data-i18n="footer_developed_by" style="margin-left: 8px; color: var(--text-secondary); font-size: 0.85em;">Developed by</span>
+                <a href="https://salmonidas-dev.vercel.app/" target="_blank" rel="noopener noreferrer" class="chip-salmonidas" data-i18n-title="footer_chip_title" title="Desarrollado por Salmónidas">
+                    <img src="assets/images/salmonidas-logo.ico" alt="Salmónidas" class="chip-icon">
+                    Salmónidas
+                </a>
             </div>
         </div>
     </footer>
@@ -303,7 +338,7 @@
 
 
     <script defer src="https://app.lemonsqueezy.com/js/lemon.js"></script>
-    <script src="app.js?v=1.2.0"></script>
+    <script src="app.js?v=1.2.1"></script>
 </body>
 
 </html>

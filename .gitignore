@@ -1,3 +1,25 @@
-local_testing/
-/Utilidades
+# === Agent / Internal Tools ===
 .agents/
+/Utilidades/
+
+# === Local Testing & Dev ===
+local_testing/
+venv/
+node_modules/
+__pycache__/
+*.pyc
+
+# === Temporary Build Artifacts ===
+chunk_*.json
+translated_chunk_*.json
+translate.js
+translate_it.py
+make_chunks.py
+*.log
+
+# === OS Generated ===
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~

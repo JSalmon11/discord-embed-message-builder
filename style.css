@@ -3310,3 +3310,56 @@ input:focus, textarea:focus, select:focus {
 .report-label-question {
   background-color: #ec4899; 
 }
+
+.chip-salmonidas {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  padding: 4px 12px 4px 6px;
+  color: var(--text-primary);
+  text-decoration: none !important;
+  font-weight: 500;
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-base);
+  margin-left: 8px;
+}
+
+.chip-salmonidas:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-primary-light) !important;
+}
+
+.chip-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* RTL Support for Arabic */
+[dir="rtl"] {
+  text-align: right;
+}
+[dir="rtl"] .header,
+[dir="rtl"] .header-left, 
+[dir="rtl"] .header-right {
+  flex-direction: row-reverse;
+}
+[dir="rtl"] .app-layout {
+  flex-direction: row-reverse;
+}
+[dir="rtl"] .panel, 
+[dir="rtl"] .modal-content,
+[dir="rtl"] .form-group label {
+  text-align: right;
+}
+/* Discord is always LTR, so we enforce LTR on the preview */
+[dir="rtl"] .discord-preview-container {
+  direction: ltr !important;
+  text-align: left !important;
+}

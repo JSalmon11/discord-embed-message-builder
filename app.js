@@ -26,7 +26,7 @@ let isTemplateView = false;
 let currentTemplateId = null;
 let originalTemplateState = null;
 
-const APP_VERSION = "1.2.0";
+const APP_VERSION = "1.2.1";
 
 let timestampUpdateInterval = null;
 let globalModalKeydownListener = null;
@@ -422,11 +422,13 @@ const translations = {
     "btn_confirm": "Confirm",
     "btn_cancel": "Cancel",
     "btn_close": "Close",
-    "footer_copyright": "© 2025 Discord Embed Creator.",
+    "footer_copyright": "© {year} Discord Embed Creator.",
     "footer_privacy": "Privacy Policy",
     "footer_terms": "Terms of Use",
     "footer_cookies": "Cookie Policy",
     "footer_donate": "Donate",
+    "footer_developed_by": "Developed by",
+    "footer_chip_title": "Developed by Salmónidas",
     "footer_legal_notice": "Legal Notice",
     "app_version": "Version",
     "modal_privacy_policy": "Privacy Policy",
@@ -827,455 +829,6 @@ const translations = {
     "faq_a8_embed_total": "Total embed: 6000 characters",
     "avatar_url_help_title": "About Bot Avatar URLs",
     "avatar_url_help_text": "Only public and internet-accessible URLs are allowed as bot avatars. Discord can only display the image if the address is public and does not require authentication. Private URLs, from services like Drive or local storage, will not work. For this reason, image uploads are not allowed for this field."
-  },
-  es: {
-    "app_title": "Creador de Embeds para Discord",
-    "btn_webhooks": "Webhooks",
-    "btn_json": "JSON",
-    "btn_templates": "Plantillas",
-    "btn_settings": "Ajustes",
-    "theme_toggle": "Cambiar tema",
-    "lang_en": "Inglés",
-    "lang_es": "Español",
-    "optional_elements": "ELEMENTOS OPCIONALES",
-    "element_author": "Autor",
-    "element_footer": "Pie de página",
-    "element_image": "Imagen",
-    "element_thumbnail": "Miniatura",
-    "element_fields": "Campos",
-    "drag_to_add": "Arrastra a la vista previa",
-    "click_to_add": "Click para añadir",
-    "btn_clear_all": "Limpiar Todo",
-    "btn_send_message": "Enviar Mensaje",
-    "btn_sending": "Enviando...",
-    "btn_change_webhook": "Cambiar Webhook",
-    "webhook_not_configured": "No hay Webhook Configurado",
-    "webhook_configure_message": "Para enviar mensajes a Discord, necesita configurar un webhook primero.",
-    "webhook_click_to_add": "Haga clic en Webhooks para agregar uno.",
-    "webhook_sending_to": "Enviando a:",
-    "msg_sent_success": "¡Mensaje enviado exitosamente!",
-    "msg_sent_error": "Error al enviar el mensaje",
-    "confirm_clear_title": "Limpiar Todo el Contenido",
-    "confirm_clear_message": "Esto limpiará la vista previa. Tus preferencias guardadas, webhooks y plantillas no serán afectados.",
-    "msg_success": "Éxito",
-    "msg_cleared": "¡Vista previa limpiada exitosamente!",
-    "msg_template_saved": "¡Plantilla guardada!",
-    "msg_template_loaded": "¡Plantilla cargada!",
-    "msg_copied_clipboard": "¡Copiado al portapapeles!",
-    "btn_save_template_changes": "Guardar Cambios de Plantilla",
-    "msg_error": "Error",
-    "msg_invalid_url": "Formato de URL inválido",
-    "msg_invalid_json": "JSON inválido",
-    "msg_invalid_color": "Color inválido",
-    "msg_template_not_found": "Plantilla no encontrada",
-    "btn_confirm": "Confirmar",
-    "btn_cancel": "Cancelar",
-    "btn_close": "Cerrar",
-    "footer_copyright": "© 2025 Creador de Embeds de Discord.",
-    "footer_privacy": "Política de Privacidad",
-    "footer_terms": "Términos de Uso",
-    "footer_cookies": "Política de Cookies",
-    "footer_donate": "Donar",
-    "footer_legal_notice": "Aviso Legal",
-    "app_version": "Versión",
-    "modal_privacy_policy": "Política de Privacidad",
-    "modal_terms_of_use": "Términos de Uso",
-    "modal_cookie_policy": "Política de Cookies",
-    "modal_legal_notice": "Aviso Legal",
-    "legal_updated": "Última actualización: Julio 2026",
-    "privacy_intro": "Esta Política de Privacidad describe cómo Discord Embed Creator gestiona la información cuando utilizas la aplicación.",
-    "privacy_section_controller": "Responsable del Tratamiento",
-    "privacy_controller_text": "La entidad responsable del tratamiento de tus datos puede consultarse en el siguiente enlace:",
-    "privacy_controller_link_text": "Identidad Legal del Responsable",
-    "privacy_section_data_collection": "Datos Recogidos",
-    "privacy_data_collection_text": "Esta aplicación almacena datos exclusivamente en el localStorage de tu navegador con fines estrictamente funcionales. Los siguientes datos se almacenan localmente en tu dispositivo:",
-    "privacy_data_theme": "Preferencia de tema (claro/oscuro)",
-    "privacy_data_language": "Selección de idioma",
-    "privacy_data_webhooks": "URLs de webhooks que configuras",
-    "privacy_data_templates": "Plantillas de embeds que guardas",
-    "privacy_data_embed": "Estado actual de edición del embed",
-    "privacy_data_consent": "Estado de reconocimiento del aviso de almacenamiento",
-    "privacy_data_banner": "Control de visualización del banner de donación",
-    "privacy_data_tutorial": "Estado del tutorial de bienvenida mostrado",
-    "privacy_section_no_server": "Sin Procesamiento en Servidor",
-    "privacy_no_server_text": "Esta aplicación NO transmite, recopila ni almacena ningún dato personal en servidores externos. Todo el procesamiento de datos ocurre exclusivamente dentro de tu navegador. No existen cuentas de usuario, registros ni envíos de datos personales.",
-    "privacy_section_external": "Servicios de Terceros",
-    "privacy_external_text": "La aplicación interactúa con los siguientes servicios externos únicamente cuando tú inicias la acción:",
-    "privacy_external_discord": "API de Webhooks de Discord: Cuando envías explícitamente un mensaje embed. Los datos que compones se envían directamente a los servidores de Discord. Consulta la Política de Privacidad de Discord.",
-    "privacy_external_github": "GitHub Pages: La aplicación está alojada en GitHub Pages. GitHub puede recopilar registros de servidor estándar (dirección IP, tipo de navegador). Consulta la Política de Privacidad de GitHub.",
-    "privacy_external_lemon": "Lemon Squeezy: Si eliges realizar una donación voluntaria a través de Lemon Squeezy, tus datos de pago son procesados exclusivamente por Lemon Squeezy. Nosotros nunca recibimos ni almacenamos tus datos de pago. Consulta la Política de Privacidad de Lemon Squeezy.",
-    "privacy_section_image_uploads": "Subida de Imágenes",
-    "privacy_image_uploads_text": "Cuando subes una imagen desde tu dispositivo, la aplicación la convierte a formato de texto Base64 y la gestiona íntegramente dentro de tu navegador. Estos datos NO se envían a ningún servidor y solo se utilizan para generar la vista previa y el código JSON que envías a Discord.",
-    "privacy_section_retention": "Retención de Datos",
-    "privacy_retention_text": "Todos los datos almacenados localmente persisten hasta que borres manualmente el localStorage de tu navegador o utilices las herramientas de borrado de datos integradas en el navegador. Puedes eliminar datos específicos en cualquier momento.",
-    "privacy_section_rights": "Tus Derechos (ARSULIPO)",
-    "privacy_rights_text": "En virtud del Reglamento General de Protección de Datos (RGPD), tienes los siguientes derechos: Acceso, Rectificación, Supresión, Limitación, Portabilidad y Oposición. Dado que esta aplicación no recopila datos personales en ningún servidor, estos derechos los ejerces directamente a través de los controles de almacenamiento de tu navegador. Para cualquier consulta, contacta al responsable del tratamiento a través del enlace proporcionado anteriormente.",
-    "privacy_section_contact": "Contacto",
-    "privacy_contact_text": "Para cualquier pregunta relacionada con la privacidad, puedes contactar al desarrollador a través del enlace de identidad legal anterior o mediante el repositorio de GitHub del proyecto.",
-    "terms_section_object": "Objeto",
-    "terms_object_text": "Estos Términos de Uso regulan el acceso y uso de la aplicación web Discord Embed Creator, una herramienta visual para crear y enviar mensajes embed de Discord mediante webhooks.",
-    "terms_section_license": "Licencia y Propiedad Intelectual",
-    "terms_license_text": "Esta aplicación está licenciada bajo la GNU Affero General Public License v3.0 (AGPL-3.0). Eres libre de usar, modificar y distribuir el código fuente bajo los términos de esta licencia. Cualquier versión modificada desplegada como servicio en red debe también hacer disponible su código fuente. Todo el diseño original, código y activos creativos son propiedad intelectual del autor.",
-    "terms_section_liability": "Limitación de Responsabilidad",
-    "terms_liability_text": "La aplicación se proporciona \"TAL CUAL\" sin ninguna garantía. El desarrollador no será responsable de ningún daño directo, indirecto, incidental o consecuente derivado del uso o la imposibilidad de uso de esta aplicación, incluyendo pero sin limitarse a la pérdida de datos o el acceso no autorizado a servidores de Discord.",
-    "terms_section_discord": "Cumplimiento de los Términos de Discord",
-    "terms_discord_text": "Los usuarios deben cumplir con los Términos de Servicio y las Directrices de la Comunidad de Discord al usar webhooks a través de esta aplicación. El desarrollador no es responsable de ningún uso indebido de la API de Discord.",
-    "terms_section_prohibited": "Usos Prohibidos",
-    "terms_prohibited_text": "Los siguientes usos de esta aplicación están estrictamente prohibidos:",
-    "terms_prohibited_spam": "Spam, mensajes masivos o envío automatizado masivo",
-    "terms_prohibited_harassment": "Acoso, abuso o ataques dirigidos",
-    "terms_prohibited_discord": "Cualquier actividad que viole los Términos de Servicio de Discord",
-    "terms_prohibited_illegal": "Cualquier actividad ilegal bajo la legislación aplicable",
-    "terms_section_changes": "Modificaciones",
-    "terms_changes_text": "El desarrollador se reserva el derecho de modificar estos Términos en cualquier momento. El uso continuado de la aplicación tras los cambios constituye la aceptación de los nuevos términos.",
-    "terms_section_law": "Legislación Aplicable",
-    "terms_law_text": "Estos Términos se rigen por la legislación española. Cualquier controversia se someterá a los juzgados y tribunales del domicilio del desarrollador.",
-    "cookies_section_what": "Tecnologías de Almacenamiento Utilizadas",
-    "cookies_what_text": "Esta aplicación utiliza exclusivamente el localStorage de tu navegador (no cookies HTTP) para almacenar datos estrictamente funcionales. No se emplean tecnologías de seguimiento, analítica ni marketing.",
-    "cookies_section_table_title": "Tabla Detallada de Almacenamiento",
-    "cookies_table_key": "Clave",
-    "cookies_table_purpose": "Propósito",
-    "cookies_table_retention": "Retención",
-    "cookies_table_preferences": "Almacena tu tema (claro/oscuro) y selección de idioma",
-    "cookies_table_webhooks": "Almacena las URLs de webhooks que configuras",
-    "cookies_table_templates": "Almacena las plantillas de embeds que guardas",
-    "cookies_table_embed": "Almacena el estado actual de edición del embed",
-    "cookies_table_active_webhook": "Almacena qué webhook está actualmente seleccionado",
-    "cookies_table_consent": "Registra que reconociste el aviso de almacenamiento",
-    "cookies_table_banner": "Controla cuándo se mostró por última vez el banner de donación",
-    "cookies_table_tutorial": "Controla si el tutorial de bienvenida ya fue mostrado",
-    "cookies_table_retention_value": "Hasta que borres los datos del navegador",
-    "cookies_section_exemption": "Aviso de Exención Legal",
-    "cookies_exemption_text": "De conformidad con las directrices de la AEPD (Agencia Española de Protección de Datos), todo el almacenamiento utilizado por esta aplicación se califica como estrictamente técnico y necesario para el servicio solicitado por el usuario. Por tanto, no se requiere un panel de consentimiento interactivo con opciones 'Aceptar/Rechazar'. El banner informativo se proporciona como medida de transparencia.",
-    "cookies_section_purpose": "Propósito",
-    "cookies_purpose_text": "Todos los datos almacenados sirven exclusivamente para preservar tu sesión de trabajo y preferencias entre visitas. Ningún dato se comparte con terceros ni se utiliza con fines de seguimiento.",
-    "cookies_section_control": "Tu Control",
-    "cookies_control_text": "Puedes eliminar todos los datos almacenados en cualquier momento borrando el localStorage de tu navegador para este sitio desde la configuración de tu navegador.",
-    "cookies_control_note": "Nota: El botón \"Limpiar Todo\" en la aplicación solo limpia el contenido de la vista previa del embed, no tus preferencias guardadas, webhooks o plantillas.",
-    "cookie_consent_message": "Esta aplicación solo utiliza el localStorage de tu navegador con fines estrictamente técnicos (guardar tus preferencias y trabajo). No se emplean cookies de seguimiento ni analítica.",
-    "cookie_accept": "Entendido",
-    "cookie_learn_more": "Más información",
-    "legal_section_object": "Objeto",
-    "legal_object_text": "En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se facilita la siguiente información general sobre este sitio web.",
-    "legal_section_ip": "Propiedad Intelectual",
-    "legal_ip_text": "Todo el código fuente, diseño, elementos gráficos y contenido textual de este sitio web son propiedad intelectual del autor y están protegidos bajo la GNU Affero General Public License v3.0 (AGPL-3.0), así como bajo las leyes de propiedad intelectual aplicables. La reproducción, distribución o comunicación pública está permitida exclusivamente bajo los términos de dicha licencia.",
-    "legal_section_liability": "Exención de Responsabilidad",
-    "legal_liability_text": "El titular no se hace responsable del contenido de los enlaces externos, de la información generada por los usuarios a través de webhooks, ni de cualquier daño derivado del uso indebido de esta herramienta. El titular se reserva el derecho de modificar, suspender o descontinuar el servicio en cualquier momento sin previo aviso.",
-    "legal_section_law": "Legislación Aplicable y Jurisdicción",
-    "legal_law_text": "Este Aviso Legal se rige por la legislación española. Para la resolución de cualquier controversia, las partes se someten a los juzgados y tribunales del domicilio del titular.",
-    "legal_section_identity": "Identidad del Titular",
-    "legal_identity_text": "Los datos identificativos del titular de este sitio web, en cumplimiento de la LSSI-CE, pueden consultarse en el siguiente enlace:",
-    "legal_identity_link_text": "Identidad Legal del Titular",
-    "donation_title": "Apoya el Desarrollo",
-    "donation_message": "Si encuentras útil esta herramienta, considera apoyar al desarrollador con una donación voluntaria.",
-    "donation_button": "☕ Cómprame un café",
-    "btn_donate_tooltip": "Apoya al desarrollador",
-    "donation_modal_title": "Apoya el Proyecto 💖",
-    "donation_modal_description": "Elige la forma que más cómoda te resulte. ¡Cada aportación ayuda a mantener este proyecto vivo y gratuito!",
-    "donation_option_lemon": "☕ Cómprame un café (Apple Pay, Google Pay, Tarjeta, PayPal)",
-    "donation_option_github": "🐙 GitHub Sponsors (puntual o periódica)",
-    "donation_success": "¡Muchísimas gracias por tu apoyo! 💖",
-    "donation_dismiss_forever": "No volver a mostrar",
-    "donation_dismiss_title": "¡Sin problema! 💙",
-    "donation_dismiss_message": "El banner no volverá a aparecer. Si en algún momento valoras el trabajo de esta web, siempre puedes encontrar las opciones de donación en el icono 💖 del corazón en la cabecera o en el enlace \"Donar\" en la parte inferior de la página. ¡Gracias por usar la herramienta!",
-    "webhooks": "Webhooks",
-    "json": "JSON",
-    "templates": "Plantillas",
-    "toggle_theme": "Cambiar tema",
-    "home": "Inicio",
-    "no_webhook": "⚠️ Sin webhook configurado. Haz clic en el botón <svg class='webhook-icon-inline' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg> 'Webhooks' en el encabezado para añadir uno.",
-    "webhook_ready": "✅ Listo para enviar a:",
-    "msg_confirm_delete": "Esto limpiará todo el contenido. ¿Continuar?",
-    "edit_title": "Editar Título",
-    "edit_description": "Editar Descripción",
-    "edit_bot": "Editar Configuración del Bot",
-    "edit_message": "Editar Contenido del Mensaje",
-    "edit_color": "Editar Color del Embed",
-    "edit_author": "Editar Autor",
-    "edit_footer": "Editar Pie de página",
-    "edit_image": "Editar Imagen",
-    "edit_thumbnail": "Editar Miniatura",
-    "add_field": "Añadir Campo",
-    "edit_field": "Editar Campo",
-    "webhook_management": "Gestión de Webhooks",
-    "add_webhook": "Añadir Webhook",
-    "webhook_url": "URL del Webhook",
-    "webhook_nickname": "Apodo (opcional)",
-    "saved_webhooks": "Webhooks Guardados",
-    "template_management": "Gestión de Plantillas",
-    "save_template": "Guardar Plantilla Actual",
-    "saved_templates": "Plantillas Guardadas",
-    "load": "Cargar",
-    "share": "Compartir",
-    "delete": "Eliminar",
-    "json_management": "Gestión de JSON",
-    "import_json": "Importar JSON",
-    "export_json": "Exportar JSON",
-    "copy_json": "Copiar JSON",
-    "view_json": "Ver JSON",
-    "cancel": "Cancelar",
-    "save": "Guardar",
-    "ok": "OK",
-    "title": "Título",
-    "description": "Descripción",
-    "url": "URL",
-    "url_optional": "URL (opcional - hace el título clickeable)",
-    "color": "Color",
-    "text_click_to_edit": "Haz clic para editar",
-    "formatting": "Formato",
-    "bold": "Negrita",
-    "italic": "Cursiva",
-    "underline": "Subrayado",
-    "strikethrough": "Tachado",
-    "code": "Código",
-    "link": "Enlace",
-    "bot_username": "Nombre del Bot",
-    "avatar_url": "URL del Avatar",
-    "message_content": "Contenido del Mensaje",
-    "author_name": "Nombre del Autor",
-    "author_url": "URL del Autor (opcional)",
-    "author_icon": "URL del Icono del Autor",
-    "footer_text": "Texto del Pie",
-    "footer_icon": "URL del Icono del Pie",
-    "image_url": "URL de la Imagen",
-    "thumbnail_url": "URL de la Miniatura",
-    "field_name": "Nombre del Campo",
-    "field_value": "Valor del Campo",
-    "inline": "Inline",
-    "remove": "Quitar",
-    "placeholder_username": "Haz clic para añadir nombre del bot",
-    "placeholder_message": "Haz clic para añadir contenido del mensaje",
-    "placeholder_title": "Haz clic para añadir título",
-    "placeholder_description": "Haz clic para añadir descripción",
-    "webhook_help_title": "Cómo obtener una URL de Webhook",
-    "webhook_help_intro": "Hay dos formas de crear un webhook:",
-    "webhook_method_1_title": "Método 1: Ajustes del Servidor",
-    "webhook_method_1_step1": "1. Ve a tu servidor de Discord",
-    "webhook_method_1_step2": "2. Haz clic en Ajustes del Servidor (icono de engranaje)",
-    "webhook_method_1_step3": "3. Ve a la sección Integraciones",
-    "webhook_method_1_step4": "4. Haz clic en Webhooks",
-    "webhook_method_1_step5": "5. Haz clic en \"Crear Webhook\"",
-    "webhook_method_1_step6": "6. Selecciona el canal donde se enviarán los mensajes",
-    "webhook_method_1_step7": "7. Copia la URL del webhook y pégala arriba",
-    "webhook_method_2_title": "Método 2: Ajustes del Canal (Más rápido)",
-    "webhook_method_2_step1": "1. Haz clic derecho en el canal donde quieres enviar mensajes",
-    "webhook_method_2_step2": "2. Haz clic en \"Editar Canal\"",
-    "webhook_method_2_step3": "3. Ve a la sección Integraciones (barra lateral izquierda)",
-    "webhook_method_2_step4": "4. Haz clic en Webhooks",
-    "webhook_method_2_step5": "5. Haz clic en \"Crear Webhook\"",
-    "webhook_method_2_step6": "6. Copia la URL del webhook y pégala arriba",
-    "no_webhooks_saved": "No hay webhooks guardados",
-    "no_templates_saved": "No hay plantillas guardadas",
-    "template_name": "Nombre de la Plantilla:",
-    "placeholder_template_name": "Mi Plantilla",
-    "use_current_time": "Usar Hora Actual",
-    "timestamp": "Marca de Tiempo",
-    "timestamp_set": "Marca de tiempo establecida",
-    "max_fields": "Máximo 25 campos permitidos",
-    "invalid_webhook": "URL de webhook de Discord inválida",
-    "enter_webhook": "Por favor ingresa una URL de webhook",
-    "webhook_added": "¡Webhook añadido!",
-    "template_deleted": "Plantilla eliminada",
-    "failed_copy": "Error al copiar",
-    "json_imported": "¡JSON importado exitosamente!",
-    "message_sent": "¡Mensaje enviado exitosamente!",
-    "btn_open_link": "Abrir en Nueva Pestaña",
-    "btn_share_link": "Copiar URL",
-    "label_url": "URL",
-    "paste_json": "Pegar JSON:",
-    "color_purple": "Púrpura",
-    "color_cyan": "Cián",
-    "color_green": "Verde",
-    "color_yellow": "Amarillo",
-    "color_red": "Rojo",
-    "color_white": "Blanco",
-    "btn_delete": "Eliminar",
-    "live_timestamp": "Marca de Tiempo en Vivo",
-    "shift_enter_newline": "Shift + Enter para nueva línea",
-    "field_name_value_required": "Se requieren tanto el nombre como el valor del campo.",
-    "remove_timestamp": "Eliminar Marca de Tiempo",
-    "btn_upload_image": "Subir Imagen",
-    "msg_img_too_large": "La imagen es muy grande. Tamaño máximo: 8MB",
-    "msg_img_upload_success": "Imagen subida correctamente",
-    "msg_img_upload_error": "Error al subir la imagen",
-    "msg_processing_image": "Procesando imagen...",
-    "msg_avatar_must_be_url": "El Avatar del Bot debe ser una URL pública (http/https), no se soportan archivos locales para este campo.",
-    "help": "Ayuda",
-    "welcome_modal_title": "¡Bienvenido a Discord Embed Creator!",
-    "welcome_modal_text": "Haz clic en el botón (?) en la cabecera para ver tutoriales completos. Si ocultas este mensaje, podrás volver a los tutoriales desde el botón de ayuda.",
-    "btn_view_tutorials": "Ver Tutoriales",
-    "btn_dont_show_again": "No volver a mostrar",
-    "help_center_title": "Centro de Ayuda",
-    "help_section_webhooks": "Configuración de Webhooks",
-    "help_section_templates": "Gestión de Plantillas",
-    "help_section_json": "Importar/Exportar JSON",
-    "help_section_language": "Cambiar Idioma",
-    "help_section_theme": "Cambiar Tema",
-    "help_section_basic": "Creación Básica",
-    "help_section_editing": "Editar Elementos",
-    "help_section_optional": "Elementos Opcionales",
-    "help_section_fields": "Campos",
-    "help_section_clear": "Limpiar Todo",
-    "help_section_send": "Enviar Mensaje",
-    "help_title_webhooks": "Configuración de Webhooks",
-    "help_webhooks_what_is_it": "Es una URL de Discord para enviar mensajes sin necesidad de crear un bot.",
-    "help_webhooks_method_1": "Método 1: Ajustes del Servidor",
-    "help_webhooks_method_1_steps": "1. Ve a tu servidor de Discord<br>2. Haz clic en Ajustes del Servidor (icono de engranaje)<br>3. Ve a la sección Integraciones<br>4. Haz clic en Webhooks<br>5. Haz clic en 'Crear Webhook'<br>6. Selecciona el canal donde se enviarán los mensajes<br>7. Copia la URL del webhook",
-    "help_webhooks_method_2": "Método 2: Ajustes del Canal (Más rápido)",
-    "help_webhooks_method_2_steps": "1. Haz clic derecho en el canal<br>2. Haz clic en 'Editar Canal'<br>3. Ve a la sección Integraciones<br>4. Haz clic en 'Crear Webhook'<br>5. Copia la URL del webhook",
-    "help_webhooks_usage": "Cómo usarlo en la app",
-    "help_webhooks_usage_steps": "Haz clic en el botón 'Webhooks' en la cabecera, pega tu URL, dale un apodo opcional y haz clic en 'Añadir Webhook'.",
-    "help_webhooks_security": "Seguridad",
-    "help_webhooks_security_text": "⚠️ Nunca compartas tu URL de webhook públicamente. Cualquiera con la URL puede enviar mensajes a tu canal.",
-    "help_webhooks_templates": "Webhooks en Plantillas",
-    "help_webhooks_templates_text": "Cada plantilla guardada puede tener su propio webhook independiente.",
-    "help_title_templates": "Gestión de Plantillas",
-    "help_templates_what_are_they": "Permiten guardar embeds completos en el almacenamiento local de tu navegador para usarlos más tarde.",
-    "help_templates_create": "Cómo crear una plantilla",
-    "help_templates_create_steps": "Diseña tu embed en la vista previa principal, haz clic en el botón 'Plantillas' en la cabecera y luego en 'Guardar Plantilla Actual'.",
-    "help_templates_manage": "Gestionar Plantillas",
-    "help_templates_manage_load": "<strong>Cargar:</strong> Aplica la plantilla guardada al editor, sobreescribiendo el contenido actual.",
-    "help_templates_manage_copy": "<strong>Copiar URL:</strong> ⚠️ Esto crea una URL que solo funciona en TU navegador. NO es para compartir con otros.",
-    "help_templates_manage_open": "<strong>Abrir en nueva pestaña:</strong> Abre la URL de la plantilla en una nueva pestaña.",
-    "help_templates_manage_delete": "<strong>Eliminar:</strong> Borra la plantilla permanentemente.",
-    "help_templates_webhooks": "Webhooks Independientes",
-    "help_templates_webhooks_text": "Cada plantilla puede asociarse con un webhook específico, que se guarda junto a ella.",
-    "help_templates_tips": "Consejos",
-    "help_templates_tips_text": "Usa plantillas para mensajes recurrentes como anuncios o estados. Guarda las URLs en favoritos para acceso rápido.",
-    "help_video_button": "Ejemplo Práctico",
-    "help_video_title": "Ejemplo Práctico de Uso",
-    "help_title_json": "Importar/Exportar JSON",
-    "help_json_what_is_it": "JSON es el formato de datos oficial que Discord usa para los embeds. Esto es lo que la app envía a Discord.",
-    "help_json_copy": "Copiar JSON",
-    "help_json_copy_steps": "Haz clic en el botón 'JSON' en la cabecera, luego 'Copiar JSON'. Esto copia el código de tu embed actual al portapapeles.",
-    "help_json_import": "Importar JSON",
-    "help_json_import_steps": "Haz clic en 'JSON', luego 'Importar JSON'. Pega tu código en el área de texto y haz clic en 'Guardar'.",
-    "help_json_uses": "¿Para qué sirve?",
-    "help_json_uses_text": "Es útil para hacer copias de seguridad, compartir el código del embed con otros desarrolladores o integrarlo en tus propios bots.",
-    "help_json_errors": "Errores Comunes",
-    "help_json_errors_text": "El error más común es 'JSON inválido'. Asegúrate de que el código esté bien formateado y que todas las URLs sean válidas.",
-    "help_title_language": "Cambiar Idioma",
-    "help_lang_available": "Idiomas Disponibles",
-    "help_lang_available_text": "La interfaz está disponible en Inglés y Español.",
-    "help_lang_selector": "Ubicación del Selector",
-    "help_lang_selector_text": "Puedes encontrar el selector de idioma en la cabecera, a la derecha.",
-    "help_lang_saving": "Guardado",
-    "help_lang_saving_text": "Tu preferencia de idioma se guarda automáticamente en tu navegador para tu próxima visita.",
-    "help_title_theme": "Cambiar Tema",
-    "help_theme_button": "Botón de Tema",
-    "help_theme_button_text": "Puedes encontrar el botón para cambiar de tema (icono de sol/luna) en la cabecera.",
-    "help_theme_function": "Funcionalidad",
-    "help_theme_function_text": "Alterna la interfaz entre un tema claro y uno oscuro.",
-    "help_theme_saving": "Guardado",
-    "help_theme_saving_text": "Tu preferencia de tema se guarda en tu navegador.",
-    "help_theme_dark": "Tema Oscuro",
-    "help_theme_dark_text": "Recomendado para reducir la fatiga visual, especialmente en entornos con poca luz.",
-    "help_theme_light": "Tema Claro",
-    "help_theme_light_text": "Ofrece mejor visibilidad en lugares muy iluminados.",
-    "help_title_basic": "Creación Básica",
-    "help_basic_elements": "Elementos Principales",
-    "help_basic_elements_text": "El núcleo de un embed se compone de un color, un título y una descripción.",
-    "help_basic_message": "Contenido del Mensaje",
-    "help_basic_message_text": "Puedes añadir un mensaje de texto estándar encima del embed haciendo clic en 'Haz clic para añadir contenido del mensaje'.",
-    "help_basic_color": "Color del Embed",
-    "help_basic_color_text": "Haz clic en la barra de color para abrir el editor. Puedes elegir un color del selector visual, introducir un código hexadecimal o seleccionar uno de los colores predefinidos.",
-    "help_basic_edit": "Cómo Editar",
-    "help_basic_edit_text": "Para editar el título o la descripción, simplemente haz clic sobre ellos en la vista previa.",
-    "help_title_editing": "Editar Elementos",
-    "help_editing_process": "Proceso General",
-    "help_editing_process_text": "Haz clic en cualquier elemento de la vista previa (título, descripción, autor, etc.) para abrir un modal de edición. Modifica el contenido en el modal y haz clic en 'Guardar' para aplicar los cambios o 'Cancelar' para descartarlos. Algunos elementos también ofrecen un botón 'Quitar' para eliminarlos por completo.",
-    "help_title_optional": "Elementos Opcionales",
-    "help_optional_author": "<strong>Autor:</strong> Añade una sección en la parte superior con un nombre, un avatar opcional y un enlace.",
-    "help_optional_footer": "<strong>Pie de página:</strong> Un texto pequeño en la parte inferior, que puede incluir un icono.",
-    "help_optional_image": "<strong>Imagen:</strong> Una imagen grande que se muestra debajo del contenido del embed.",
-    "help_optional_thumbnail": "<strong>Miniatura:</strong> Una imagen pequeña que aparece en la esquina superior derecha.",
-    "help_optional_fields": "<strong>Campos:</strong> Bloques de texto con título y valor, que pueden mostrarse en línea.",
-    "help_optional_pc": "Cómo añadir (PC)",
-    "help_optional_pc_text": "Arrastra el elemento desde el panel izquierdo y suéltalo sobre la vista previa, o haz clic en él.",
-    "help_optional_mobile": "Cómo añadir (Móvil)",
-    "help_optional_mobile_text": "En dispositivos móviles, no se puede arrastrar. Simplemente pulsa el elemento en el panel izquierdo para abrir su modal de edición.",
-    "help_optional_reorder": "Reordenar Campos",
-    "help_optional_reorder_text": "Usa los botones de flecha ⬆ y ⬇ que aparecen junto a cada campo para cambiar su orden.",
-    "help_optional_remove": "Eliminar Elementos",
-    "help_optional_remove_text": "Dentro del modal de edición de cada elemento opcional, encontrarás un botón 'Quitar'.",
-    "help_title_fields": "Campos (Fields)",
-    "help_fields_block": "Campos de Bloque",
-    "help_fields_block_text": "Por defecto, un campo ocupa todo el ancho del embed.",
-    "help_fields_max": "Máximo de Campos",
-    "help_fields_max_text": "Discord permite un máximo de 25 campos por embed.",
-    "help_fields_reorder": "Reordenar",
-    "help_fields_reorder_text": "Usa los botones de flecha junto a cada campo en la vista previa para cambiar su posición.",
-    "help_title_clear": "Limpiar Todo",
-    "help_clear_resets": "Resetea la Vista Previa",
-    "help_clear_resets_text": "El botón 'Limpiar Todo' resetea por completo el área de vista previa, borrando todo el contenido del mensaje y del embed.",
-    "help_clear_confirmation": "Pide Confirmación",
-    "help_clear_confirmation_text": "Para evitar borrados accidentales, aparecerá un modal de confirmación.",
-    "help_clear_no_delete": "Qué NO borra",
-    "help_clear_no_delete_text": "Esta acción no afecta a tus webhooks guardados, plantillas ni a las preferencias de la aplicación (como el tema y el idioma).",
-    "help_title_send": "Enviar Mensaje",
-    "help_send_requires": "Requiere Webhook",
-    "help_send_requires_text": "No puedes enviar un mensaje sin haber configurado y seleccionado un webhook activo.",
-    "help_send_active": "Activación del Botón",
-    "help_send_active_text": "El botón 'Enviar Mensaje' solo se activará cuando haya un webhook válido seleccionado.",
-    "help_send_sends": "Envía a Discord",
-    "help_send_sends_text": "Al hacer clic, envía el embed y mensaje completos al canal de Discord asociado a tu webhook activo.",
-    "btn_report_bug": "Reportar",
-    "modal_report_bug_title": "Reportar",
-    "report_bug_explanation": "¿Encontraste un error o tienes una sugerencia? Ayúdanos a mejorar la aplicación reportándolo en GitHub Issues.",
-    "report_bug_version": "Versión actual:",
-    "report_bug_type_title": "Tipo de reporte",
-    "report_bug_type_explanation": "Cuando crees tu reporte en GitHub, usa las etiquetas (labels) apropiadas:",
-    "report_bug_type_bug_desc": "Para reportar errores o problemas en la aplicación",
-    "report_bug_type_enhancement_desc": "Para sugerir mejoras o nuevas funcionalidades",
-    "report_bug_type_documentation_desc": "Para sugerencias sobre la documentación",
-    "report_bug_type_question_desc": "Para hacer preguntas sobre el funcionamiento",
-    "report_bug_type_outro": "Estas etiquetas ayudan a organizar y priorizar los reportes.",
-    "report_bug_info_title": "¿Qué información incluir en el reporte?",
-    "report_bug_info_1": "Descripción clara del problema que encontraste",
-    "report_bug_info_2": "Qué pasos seguiste para que ocurriera el error",
-    "report_bug_info_3": "Qué esperabas que pasara y qué pasó realmente",
-    "report_bug_info_4": "Tu navegador y sistema operativo",
-    "report_bug_info_5": "Capturas de pantalla si es posible",
-    "report_bug_info_title_clarification": "Este formato es sobre todo para el reporte de errores/bugs.",
-    "btn_open_github_issues": "Abrir GitHub Issues",
-    "btn_faq": "FAQ",
-    "modal_faq_title": "Preguntas Frecuentes",
-    "faq_q1": "¿Cómo obtengo la URL de mi webhook?",
-    "faq_a1_step1": "Ve a tu servidor de Discord",
-    "faq_a1_step2": "Haz clic en Ajustes del Servidor (icono de engranaje)",
-    "faq_a1_step3": "Ve a la sección Integraciones",
-    "faq_a1_step4": "Haz clic en Webhooks",
-    "faq_a1_step5": "Haz clic en 'Crear Webhook'",
-    "faq_a1_step6": "Selecciona el canal donde se enviarán los mensajes",
-    "faq_a1_step7": "Copia la URL del webhook",
-    "faq_q2": "¿Puedo usar varios webhooks?",
-    "faq_a2": "Sí, puedes añadir múltiples webhooks y cambiar entre ellos usando el botón Webhooks en la cabecera de la aplicación.",
-    "faq_q3": "¿Se guardan mis webhooks y plantillas?",
-    "faq_a3": "Sí, se guardan localmente en tu navegador. No se envían a ningún servidor externo.",
-    "faq_q4": "¿Cómo exporto mi embed a JSON?",
-    "faq_a4_step1": "Haz clic en el botón JSON en la cabecera",
-    "faq_a4_step2": "Haz clic en 'Copiar JSON'",
-    "faq_a4_step3": "Ya puedes pegar el código donde lo necesites.",
-    "faq_q5": "¿Puedo importar un embed desde JSON?",
-    "faq_a5_step1": "Sí, haz clic en el botón JSON en la cabecera",
-    "faq_a5_step2": "Haz clic en 'Importar JSON'",
-    "faq_a5_step3": "Pega tu código JSON y haz clic en 'Guardar'.",
-    "faq_q6": "¿Qué formatos de URL de webhook son válidos?",
-    "faq_a6_format1": "discord.com/api/webhooks/...",
-    "faq_a6_format2": "discordapp.com/api/webhooks/...",
-    "faq_a6_format3": "ptb.discord.com/api/webhooks/ (PTB)",
-    "faq_a6_format4": "canary.discord.com/api/webhooks/ (Canary)",
-    "faq_q7": "¿Los colores funcionan en Discord?",
-    "faq_a7": "Sí, Discord soporta colores en los embeds. Usa el selector de color o introduce un código hexadecimal.",
-    "faq_q8": "¿Cuál es el límite de caracteres?",
-    "faq_a8_title": "Título: 256 caracteres",
-    "faq_a8_description": "Descripción: 4096 caracteres",
-    "faq_a8_fields_max": "Campos: 25 campos máximo",
-    "faq_a8_field_name": "Nombre de campo: 256 caracteres",
-    "faq_a8_field_value": "Valor de campo: 1024 caracteres",
-    "faq_a8_embed_total": "Total del embed: 6000 caracteres",
-    "avatar_url_help_title": "Sobre las URLs de Avatar del Bot",
-    "avatar_url_help_text": "Solo se permiten URLs públicas y accesibles desde internet como avatar del bot. Discord solo puede mostrar la imagen si la dirección es pública y no requiere autenticación. Las URLs privadas, de servicios como Drive o almacenamiento local, no funcionarán. Por este motivo, no se permite la subida de imágenes para este campo."
   }
 };
 
@@ -1292,7 +845,11 @@ const colorPresets = [
 
 
 function t(key) {
-  return translations[currentLang][key] || key;
+  let text = translations[currentLang][key] || key;
+  if (typeof text === 'string' && text.includes('{year}')) {
+    text = text.replace('{year}', new Date().getFullYear());
+  }
+  return text;
 }
 
 function isValidUrl(string) {
@@ -1429,7 +986,23 @@ function dataURLtoBlob(dataurl) {
   return new Blob([u8arr], { type: mime });
 }
 
-function init() {
+const SUPPORTED_LANGS = ['en', 'es', 'ar', 'zh-CN', 'en-IN', 'en-AU', 'en-CA', 'en-GB', 'en-US', 'fr-CA', 'fr-FR', 'de-DE', 'hi-IN', 'id', 'it-IT', 'ja-JP', 'ko-KR', 'pt-BR', 'pt-PT', 'ru-RU', 'th', 'tr-TR', 'vi', 'ca', 'gl-ES', 'eu-ES'];
+
+async function loadLocale(lang) {
+  if (translations[lang]) return;
+  try {
+    const response = await fetch(`locales/${lang}.json?v=${APP_VERSION}`);
+    if (response.ok) {
+      translations[lang] = await response.json();
+    } else {
+      console.error(`Failed to load locale: ${lang}`);
+    }
+  } catch (e) {
+    console.error(`Error loading locale ${lang}:`, e);
+  }
+}
+
+async function init() {
 
   const prefs = StorageManager.loadPreferences();
 
@@ -1442,15 +1015,35 @@ function init() {
   let initialLang = prefs.language;
   if (!initialLang) {
     const browserLang = navigator.language || navigator.userLanguage;
-    if (browserLang.toLowerCase().startsWith('es')) {
-      initialLang = 'es';
+    const lowerLang = browserLang.toLowerCase();
+    
+    // Smart language mapping
+    if (lowerLang.startsWith('es-')) {
+        if (['es-es'].includes(lowerLang)) initialLang = 'es-ES';
+        else if (['es-us'].includes(lowerLang)) initialLang = 'es-US';
+        else initialLang = 'es-419'; // Map all other latin american to es-419
+    } else if (lowerLang.startsWith('ca-')) {
+        if (lowerLang === 'ca-es-valencia') initialLang = 'ca-ES-valencia';
+        else if (lowerLang === 'ca-es-mallorca') initialLang = 'ca-ES-mallorca';
+        else initialLang = 'ca';
     } else {
-      initialLang = 'en';
+        const exactMatch = SUPPORTED_LANGS.find(l => l.toLowerCase() === lowerLang);
+        if (exactMatch) {
+          initialLang = exactMatch;
+        } else {
+          const prefixMatch = SUPPORTED_LANGS.find(l => l.split('-')[0].toLowerCase() === lowerLang.split('-')[0]);
+          initialLang = prefixMatch || 'en';
+        }
     }
+  } else if (!SUPPORTED_LANGS.includes(initialLang)) {
+    initialLang = 'en';
   }
+  
+  await loadLocale(initialLang);
   currentLang = initialLang;
 
   document.documentElement.lang = currentLang;
+  document.documentElement.dir = (currentLang === 'ar') ? 'rtl' : 'ltr';
   document.documentElement.setAttribute('data-language', currentLang);
   document.getElementById('languageSelect').value = currentLang;
 
@@ -1700,7 +1293,11 @@ function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (translations[currentLang][key]) {
-      el.textContent = translations[currentLang][key];
+      let text = translations[currentLang][key];
+      if (typeof text === 'string' && text.includes('{year}')) {
+        text = text.replace('{year}', new Date().getFullYear());
+      }
+      el.textContent = text;
     }
   });
 
@@ -1740,9 +1337,11 @@ function saveCurrentState() {
   }
 }
 
-function changeLang(lang) {
+async function changeLang(lang) {
+  await loadLocale(lang);
   currentLang = lang;
   document.documentElement.lang = lang;
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
   document.documentElement.setAttribute('data-language', lang);
   applyTranslations();
   updateButtonTitles();
